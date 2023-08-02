@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
+    "@marko/tags-api-preview": "^0.7.2",
     "marko": "^5.25.16"
   },
   "devDependencies": {
