@@ -1,10 +1,10 @@
 import signInFormMarko from "../../components/auth/sign-in-form/sign-in-form.marko";
 
-<mouse-mask class="container">
+<mouse-mask class="flex flex-col items-center justify-center">
   <header>
-    <img src="./logo.svg" alt="Marko" class="logo">
+    <img src="./logo.svg" alt="Marko" class="w-60">
   </header>
-  <main>
+  <main class="">
     <p>
       Edit
       <code>./src/routes/_index/+page.marko</code>
@@ -16,26 +16,3 @@ import signInFormMarko from "../../components/auth/sign-in-form/sign-in-form.mar
     <signInFormMarko/>
   </main>
 </mouse-mask>
-style {
-  .async-thing {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: red;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-    color: #fff;
-    background: #111;
-    height: 100%;
-    width: 100%;
-  }
-  img.logo {
-    width: 400px;
-  }
-}
