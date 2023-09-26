@@ -1,3 +1,4 @@
+import navbar from "../components/navbar.marko";
 import "./index.css";
 <!doctype html>
 <html lang="en">
@@ -9,6 +10,7 @@ import "./index.css";
     <title>${$global.meta.pageTitle || "Marko"}</title>
   </head>
   <body class="flex h-screen w-screen flex-col-reverse md:flex-row">
+    <navbar/>
     <main class="w-full max-w-full overflow-x-hidden">
       <${input.renderBody}/>
     </main>

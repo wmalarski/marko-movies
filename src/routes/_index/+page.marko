@@ -1,24 +1,11 @@
-import signInFormMarko from "../../components/auth/sign-in-form/sign-in-form.marko";
 import {
+  getRandomMedia,
   getTMDBContext,
   getTrendingMovie,
   getTrendingTv,
-  getRandomMedia,
 } from "../../services/tmbd";
-import type { MovieBase, TvBase } from "../../services/types";
 
-<header>
-  <img src="./logo.svg" alt="Marko" class="w-60">
-</header>
-<main class="flex flex-col items-center justify-center">
-  <p>
-    Edit
-    <code>./src/routes/_index/+page.marko</code>
-     and save to reload.
-  </p>
-  <a href="https://markojs.com/docs/getting-started">
-    Learn Marko
-  </a>
+<div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const context = getTMDBContext($global);
   $ const movies = getTrendingMovie({ context, page: 1 });
 
@@ -31,6 +18,9 @@ import type { MovieBase, TvBase } from "../../services/types";
     </@placeholder>
 
     <@then|movies|>
+      $ const random = getRandomMedia({ collections: [movies] });
+      <movie-hero media=random/>
+
       <pre>${JSON.stringify(movies, null, 2)}</pre>
     </@then>
 
@@ -55,4 +45,4 @@ import type { MovieBase, TvBase } from "../../services/types";
       <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
     </@catch>
   </await>
-</main>
+</div>
