@@ -50,11 +50,11 @@ import { getListItem } from "../../utils/format";
         title=getListItem({ query: "trending", type: "tv" })
         viewAllHref=paths.tvCategory("trending")
       />
-      <pre>${JSON.stringify(tvs, null, 2)}</pre>
     </@then>
 
     <@catch|err|>
       <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
     </@catch>
   </await>
+  <page-footer/>
 </div>
