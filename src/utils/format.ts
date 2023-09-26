@@ -11,15 +11,15 @@ export const getListItem = ({ type = "movie", query }: GetListItem) => {
   return categories[type].find((list) => list.query === query)?.title || query;
 };
 
-export function formatDate(date: string) {
+export const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString("en-us", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-}
+};
 
-export function formatCurrency(amount?: number) {
+export const formatCurrency = (amount?: number) => {
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
     maximumFractionDigits: 0,
@@ -27,9 +27,9 @@ export function formatCurrency(amount?: number) {
   });
 
   return formatter.format(amount || 0);
-}
+};
 
-export function formatRuntime(minutes: number) {
+export const formatRuntime = (minutes: number) => {
   const seconds = minutes * 60;
   let secondsLeft = seconds;
 
@@ -42,9 +42,9 @@ export function formatRuntime(minutes: number) {
   secondsLeft = secondsLeft % 60;
 
   return `${hours ? hours + "h" : ""} ${mins}min`;
-}
+};
 
-export function formatLanguage(iso?: string) {
+export const formatLanguage = (iso?: string) => {
   const fullLang = languages.find((lang) => lang.iso_639_1 === iso);
 
   if (fullLang) {
@@ -52,4 +52,13 @@ export function formatLanguage(iso?: string) {
   }
 
   return iso;
-}
+};
+
+export const getHeading = (media: MediaBase): string | undefined => {
+  if ("title" in media) {
+    return media.title;
+  }
+  if ("name" in media) {
+    return media.name;
+  }
+};

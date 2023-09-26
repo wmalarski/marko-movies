@@ -4,6 +4,8 @@ import {
   getTrendingMovie,
   getTrendingTv,
 } from "../../services/tmbd";
+import { paths } from "../../utils/paths";
+import { getListItem } from "../../utils/format";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const context = getTMDBContext($global);
@@ -19,9 +21,14 @@ import {
 
     <@then|movies|>
       $ const random = getRandomMedia({ collections: [movies] });
-      <movie-hero media=random/>
-
-      <pre>${JSON.stringify(movies, null, 2)}</pre>
+      <a href=paths.media("movie", random.id)>
+        <movie-hero media=random/>
+      </a>
+      <media-carousel
+        collection=movies.results || []
+        title=getListItem({ query: "trending", type: "movie" })
+        viewAllHref=paths.movieCategory("trending")
+      />
     </@then>
 
     <@catch|err|>
@@ -38,6 +45,11 @@ import {
     </@placeholder>
 
     <@then|tvs|>
+      <media-carousel
+        collection=tvs.results || []
+        title=getListItem({ query: "trending", type: "tv" })
+        viewAllHref=paths.tvCategory("trending")
+      />
       <pre>${JSON.stringify(tvs, null, 2)}</pre>
     </@then>
 
