@@ -5,7 +5,8 @@
   "type": "module",
   "dependencies": {
     "@marko/tags-api-preview": "^0.7.2",
-    "marko": "^5.25.16"
+    "marko": "^5.25.16",
+    "vinxi": "^0.0.30"
   },
   "devDependencies": {
     "@marko/run": "^0.1.14",
