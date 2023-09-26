@@ -11,9 +11,9 @@ import {
   TvExtraDetails,
 } from "./types";
 
-export const getTMDBContext = (event: any) => {
+export const getTMDBContext = (context: MarkoRun.Context) => {
   return {
-    apiKey: event.env.get("VITE_TMDB_API_KEY"),
+    apiKey: (import.meta as any).env.VITE_TMDB_API_KEY,
     baseURL: "https://api.themoviedb.org/3",
   };
 };

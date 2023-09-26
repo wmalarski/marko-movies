@@ -1,4 +1,11 @@
 import signInFormMarko from "../../components/auth/sign-in-form/sign-in-form.marko";
+import {
+  getTMDBContext,
+  getTrendingMovie,
+  getTrendingTv,
+  getRandomMedia,
+} from "../../services/tmbd";
+import type { MovieBase, TvBase } from "../../services/types";
 
 <header>
   <img src="./logo.svg" alt="Marko" class="w-60">
@@ -12,28 +19,40 @@ import signInFormMarko from "../../components/auth/sign-in-form/sign-in-form.mar
   <a href="https://markojs.com/docs/getting-started">
     Learn Marko
   </a>
-  $ const personPromise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve({ name: "Frank" }), 1000);
-  });
+  $ const context = getTMDBContext($global);
+  $ const movies = getTrendingMovie({ context, page: 1 });
 
-  <await(personPromise) client-reorder>
+  <await(movies) client-reorder>
     <@placeholder>
-      <!-- Displays while promise is pending -->
       <label>
         Loading…
         <progress/>
       </label>
     </@placeholder>
 
-    <@then|person|>
-      <!-- Displays if promise resolves -->
-      <p>Hello ${(person as any).name}!</p>
+    <@then|movies|>
+      <pre>${JSON.stringify(movies, null, 2)}</pre>
     </@then>
 
     <@catch|err|>
       <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
     </@catch>
   </await>
+  $ const tvs = getTrendingTv({ context, page: 1 });
+  <await(tvs) client-reorder>
+    <@placeholder>
+      <label>
+        Loading…
+        <progress/>
+      </label>
+    </@placeholder>
 
-  <signInFormMarko/>
+    <@then|tvs|>
+      <pre>${JSON.stringify(tvs, null, 2)}</pre>
+    </@then>
+
+    <@catch|err|>
+      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
+    </@catch>
+  </await>
 </main>

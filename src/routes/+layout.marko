@@ -8,7 +8,9 @@ import "./index.css";
     <meta name="description" content="A basic Marko app.">
     <title>${$global.meta.pageTitle || "Marko"}</title>
   </head>
-  <body>
-    <${input.renderBody}/>
+  <body class="flex h-screen w-screen flex-col-reverse md:flex-row">
+    <main class="w-full max-w-full overflow-x-hidden">
+      <${input.renderBody}/>
+    </main>
   </body>
 </html>
