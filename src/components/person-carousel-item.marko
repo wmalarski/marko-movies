@@ -1,0 +1,23 @@
+import { Cast, Crew } from "../services/types";
+import { paths } from "../utils/paths";
+import { getProfile, getProfileSet } from "../services/images";
+export interface Input {
+  media: Cast | Crew;
+}
+$ const { media } = input;
+
+<a href=paths.person(media.id) class="w-48">
+  <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
+    <picture>
+      <img
+        alt=media.name
+        class="max-w-full border-4 border-base-300 object-cover "
+        height=270
+        src=getProfile(media, "w45")
+        srcset=getProfileSet(media)
+        width=185
+      >
+    </picture>
+  </div>
+  <span>${media.name}</span>
+</a>

@@ -1,0 +1,26 @@
+import { Cast, Crew } from "../services/types";
+export interface Input {
+  collection: (Cast | Crew)[];
+  title: string;
+}
+$ const { collection, title } = input;
+
+<section>
+  <div class="flex flex-row items-center px-12 py-2">
+    <h2 class="text-2xl text-white">
+      ${title}
+    </h2>
+    <div class="flex-auto"/>
+  </div>
+  <div class="relative">
+    <div class="overflow-y-auto px-8 py-4">
+      <div class="carousel flex w-max flex-row gap-2">
+        <for|media| of=collection>
+          <div class="carousel-item">
+            <person-carousel-item media=media/>
+          </div>
+        </for>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,16 +1,19 @@
 import { getMovie, getTMDBContext } from "../../../services/tmbd";
 import { paths } from "../../../utils/paths";
-import { number, minValue, integer, parse, object } from "valibot";
+import { number, minValue, integer, parse, coerce, object } from "valibot";
 import { twCx } from "../../../utils/twCx";
 export interface Input {
   renderBody: any;
 }
-$ const paramsSchema = object({ movieId: number([minValue(0), integer()]) });
-$ const params = parse(paramsSchema, $global.params);
-$ const context = getTMDBContext($global);
-$ const moviePromise = getMovie({ context, id: params.movieId });
+$ const { renderBody } = input;
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+  $ const paramsSchema = object({
+    movieId: coerce(number([minValue(0), integer()]), Number),
+  });
+  $ const params = parse(paramsSchema, $global.params);
+  $ const context = getTMDBContext($global);
+  $ const moviePromise = getMovie({ context, id: params.movieId });
 
   <await(moviePromise) client-reorder>
     <@placeholder>
@@ -71,6 +74,6 @@ $ const moviePromise = getMovie({ context, id: params.movieId });
       Photos
     </a>
   </div>
-  ${input.renderBody}
+  ${renderBody}
   <page-footer/>
 </div>

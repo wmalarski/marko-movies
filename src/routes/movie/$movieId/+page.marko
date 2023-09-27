@@ -1,6 +1,8 @@
 import { getMovie, getTMDBContext } from "../../../services/tmbd";
-import { number, minValue, integer, parse, object } from "valibot";
-$ const paramsSchema = object({ movieId: number([minValue(0), integer()]) });
+import { number,coerce, minValue, integer, parse, object } from "valibot";
+$ const paramsSchema = object({
+  movieId: coerce(number([minValue(0), integer()]), Number),
+});
 $ const params = parse(paramsSchema, $global.params);
 $ const context = getTMDBContext($global);
 $ const moviePromise = getMovie({ context, id: params.movieId });
@@ -17,7 +19,7 @@ $ const moviePromise = getMovie({ context, id: params.movieId });
 
     <div class="flex flex-col">
       <movie-info-card media=movie/>
-      <PersonCarousel collection=(movie.credits?.cast || []) title="Cast"/>
+      <person-carousel collection=(movie.credits?.cast || []) title="Cast"/>
     </div>
   </@then>
 
