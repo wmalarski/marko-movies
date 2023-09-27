@@ -1,11 +1,27 @@
-import { component$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
-import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
-import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
-import { useMovieLoader } from "../layout";
-$ const resource = useMovieLoader();
+import { getMovie, getTMDBContext } from "../../../services/tmbd";
+import { number, minValue, integer, parse, object } from "valibot";
+$ const paramsSchema = object({ movieId: number([minValue(0), integer()]) });
+$ const params = parse(paramsSchema, $global.params);
+$ const context = getTMDBContext($global);
+$ const moviePromise = getMovie({ context, id: params.movieId });
 
-<div class="flex flex-col">
-  <MovieInfoCard media=resource.value/>
-  <PersonCarousel collection=(resource.value.credits?.cast || []) title="Cast"/>
-</div>
+<await(moviePromise) client-reorder>
+  <@placeholder>
+    <label>
+      Loading…
+      <progress/>
+    </label>
+  </@placeholder>
+
+  <@then|movie|>
+
+    <div class="flex flex-col">
+      <movie-info-card media=movie/>
+      <PersonCarousel collection=(movie.credits?.cast || []) title="Cast"/>
+    </div>
+  </@then>
+
+  <@catch|err|>
+    <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
+  </@catch>
+</await>

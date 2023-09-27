@@ -1,0 +1,89 @@
+export interface Input {
+  links: Record<string, string | undefined>;
+  isPerson?: boolean;
+}
+$ const { links, isPerson } = input;
+
+<ul class="flex flex-row gap-4 opacity-80">
+  <if(links.twitter_id)>
+    <li>
+      <a
+        aria-label="Twitter account"
+        href=`https://twitter.com/${links.twitter_id}`
+        rel="noopener"
+        target="_blank"
+      >
+        twitter<!-- <ImgTwitter
+          alt="twitter"
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+        /> -->
+      </a>
+    </li>
+  </if>
+
+  <if(links.facebook_id)>
+    <li>
+      <a
+        aria-label="Facebook account"
+        href=`https://facebook.com/${links.facebook_id}`
+        rel="noopener"
+        target="_blank"
+      >
+        facebook<!-- <ImgFacebook
+          alt="facebook"
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+        /> -->
+      </a>
+    </li>
+  </if>
+
+  <if(links.instagram_id)>
+    <li>
+      <a
+        aria-label="Instagram account"
+        href=`https://instagram.com/${links.instagram_id}`
+        rel="noopener"
+        target="_blank"
+      >
+        instagram<!-- <ImgInstagram
+          alt="instagram"
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+        /> -->
+      </a>
+    </li>
+  </if>
+
+  <if(links.imdb_id)>
+    <li>
+      <a
+        aria-label="IMDb account"
+        href=`https://www.imdb.com/${isPerson ? "name" : "title"}/${
+          links.imdb_id
+        }`
+        rel="noopener"
+        target="_blank"
+      >
+        imdb<!-- <ImgImdb
+          alt="imdb"
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+        /> -->
+      </a>
+    </li>
+  </if>
+
+  <if(links.homepage)>
+    <li>
+      <a
+        aria-label="Homepage"
+        href=links.homepage
+        rel="noopener"
+        target="_blank"
+      >
+        homepage<!-- <ImgLink
+          alt="homepage"
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+        /> -->
+      </a>
+    </li>
+  </if>
+</ul>

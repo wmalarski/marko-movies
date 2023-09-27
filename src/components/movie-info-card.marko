@@ -106,14 +106,12 @@ $ const { media } = input;
           <div>${media.production_companies.map((c) => c.name).join(", ")}</div>
         </if>
       </div>
-      <!-- <div>
-        <ExternalLinks
-          links={{
-            ...media.external_ids,
-            homepage: media.homepage,
-          }}
-        />
-      </div> -->
+      <div>
+        <external-links links={
+          ...media.external_ids,
+          homepage: media.homepage,
+        }/>
+      </div>
     </div>
   </div>
 </section>

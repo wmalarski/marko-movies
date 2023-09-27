@@ -1,83 +1,76 @@
-import { component$, Slot } from "@builder.io/qwik";
-import { routeLoader$, useLocation, z } from "@builder.io/qwik-city";
-import clsx from "clsx";
-import { Footer } from "~/modules/Footer/Footer";
-import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import { getMovie, getTMDBContext } from "~/services/tmdb";
-import { paths } from "~/utils/paths";
+import { getMovie, getTMDBContext } from "../../../services/tmbd";
+import { paths } from "../../../utils/paths";
+import { number, minValue, integer, parse, object } from "valibot";
+import { twCx } from "../../../utils/twCx";
+export interface Input {
+  renderBody: any;
+}
+$ const paramsSchema = object({ movieId: number([minValue(0), integer()]) });
+$ const params = parse(paramsSchema, $global.params);
+$ const context = getTMDBContext($global);
+$ const moviePromise = getMovie({ context, id: params.movieId });
 
-$ const useMovieLoader = routeLoader$(async (event) => {
-  const parseResult = await z
-    .object({ movieId: z.coerce.number().min(0).step(1) })
-    .safeParseAsync(event.params);
+<div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
 
-  if (!parseResult.success) {
-    throw event.redirect(302, paths.notFound);
-  }
+  <await(moviePromise) client-reorder>
+    <@placeholder>
+      <label>
+        Loading…
+        <progress/>
+      </label>
+    </@placeholder>
 
-  const context = getTMDBContext(event);
+    <@then|movie|>
 
-  try {
-    const movie = await getMovie({
-      context,
-      id: parseResult.data.movieId,
-    });
+      <movie-hero media=movie/>
+    </@then>
 
-    return movie;
-  } catch {
-    throw event.redirect(302, paths.notFound);
-  }
-});
+    <@catch|err|>
+      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
+    </@catch>
+  </await>
 
-  $ const location = useLocation();
-
-  $ const movie = useMovieLoader();
-
-  $ const overviewHref = paths.media("movie", +location.params.movieId);
-  $ const videoHref = paths.movieVideo(+location.params.movieId);
-  $ const photosHref = paths.moviePhotos(+location.params.movieId);
-
-
-    <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-      <MovieHero media={movie.value} />
-      <div class="flex flex-row items-center justify-center gap-4">
-        <a
-          href={overviewHref}
-          class={clsx(
-            "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-            {
-              "border-b-2 border-b-white opacity-100":
-                overviewHref === location.url.pathname,
-            },
-          )}
-        >
-          Overview
-        </a>
-        <a
-          href={videoHref}
-          class={clsx(
-            "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-            {
-              "border-b-2 border-b-white opacity-100":
-                videoHref === location.url.pathname,
-            },
-          )}
-        >
-          Videos
-        </a>
-        <a
-          href={photosHref}
-          class={clsx(
-            "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-            {
-              "border-b-2 border-b-white opacity-100":
-                photosHref === location.url.pathname,
-            },
-          )}
-        >
-          Photos
-        </a>
-      </div>
-      <Slot />
-      <Footer />
-    </div>
+  <div class="flex flex-row items-center justify-center gap-4">
+    $ const overviewHref = paths.media("movie", params.movieId);
+    <a
+      href=overviewHref
+      class=twCx(
+        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
+        {
+          "border-b-2 border-b-white opacity-100":
+            overviewHref === $global.url.pathname,
+        }
+      )
+    >
+      Overview
+    </a>
+    $ const videoHref = paths.movieVideo(params.movieId);
+    <a
+      href=videoHref
+      class=twCx(
+        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
+        {
+          "border-b-2 border-b-white opacity-100":
+            videoHref === $global.url.pathname,
+        }
+      )
+    >
+      Videos
+    </a>
+    $ const photosHref = paths.moviePhotos(params.movieId);
+    <a
+      href=photosHref
+      class=twCx(
+        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
+        {
+          "border-b-2 border-b-white opacity-100":
+            photosHref === $global.url.pathname,
+        }
+      )
+    >
+      Photos
+    </a>
+  </div>
+  ${input.renderBody}
+  <page-footer/>
+</div>
