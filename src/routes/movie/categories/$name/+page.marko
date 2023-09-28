@@ -1,0 +1,83 @@
+import {
+  getMovies,
+  getTMDBContext,
+  getTrendingMovie,
+} from "../../../../services/tmbd";
+import { getListItem } from "../../../../utils/format";
+import { object, string, minLength, parse } from "valibot";
+$ const parseResult = parse(
+  object({ name: string([minLength(1)]) }),
+  $global.params
+);
+$ const context = getTMDBContext($global);
+$ const name = parseResult.name;
+$ const movies = (
+  name === "trending"
+    ? getTrendingMovie({ context, page: 1 })
+    : getMovies({ context, page: 1, query: name })
+);
+// export const getMore = server$(async function (page: number) {
+
+//   const parseResult = await z
+
+//     .object({
+
+//       page: z.coerce.number().int().min(1).default(1),
+
+//       query: z.string().min(1),
+
+//     })
+
+//     .parseAsync({ page, query: this.params.name });
+
+//   const context = getTMDBContext(this);
+
+//   const movies =
+
+//     parseResult.query === "trending"
+
+//       ? await getTrendingMovie({ context, page: parseResult.page })
+
+//       : await getMovies({ context, ...parseResult });
+
+//   return movies;
+
+// });
+
+<!-- const containerRef = useSignal<Element | null>(null); -->
+<!-- $ const resource = useCategoryLoader(); -->
+<!-- const currentPage = useSignal(1); -->
+<!-- const collection = useSignal<MediaBase[]>(resource.value.results || []); -->
+
+<div class="flex max-h-screen flex-col overflow-y-scroll">
+  <h1 class="px-8 pt-4 text-4xl">
+    ${getListItem({ query: parseResult.name, type: "movie" })}
+  </h1>
+  <div>
+
+    <await(movies) client-reorder>
+      <@placeholder>
+        <label>
+          Loading…
+          <progress/>
+        </label>
+      </@placeholder>
+
+      <@then|movies|>
+        <media-grid collection=movies.results || [] currentPage=0 pageCount=1/>
+      </@then>
+
+      <@catch|err|>
+        <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
+      </@catch>
+    </await>
+  </div>
+</div>
+<!-- onMore$=(
+async () => {
+const data = await getMore(currentPage.value + 1);
+const newMedia = data.results || [];
+collection.value = [...collection.value, ...newMedia];
+currentPage.value += 1;
+}
+) -->

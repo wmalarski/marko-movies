@@ -1,0 +1,46 @@
+import { MediaBase } from "../services/types";
+export interface Input {
+  collection: MediaBase[];
+  currentPage: number;
+  // onMore$?: QRL<() => void>;
+  pageCount: number;
+  parentContainer?: Element | null;
+}
+$ const { collection, currentPage, pageCount, parentContainer } = input;
+<!-- const throttleTimer = useSignal(false); -->
+<!-- const scrollEnabled = useSignal(props.currentPage < props.pageCount); -->
+<!-- const handleScroll$ = $(() => {
+  if (!props.parentContainer) {
+    return;
+  }
+
+  const endOfPage =
+    props.parentContainer.clientHeight + props.parentContainer.scrollTop >=
+    props.parentContainer.scrollHeight - 100;
+
+  if (endOfPage) {
+    props.onMore$?.();
+  }
+
+  if (props.currentPage === props.pageCount) {
+    scrollEnabled.value = false;
+  }
+}); -->
+<!-- document:onScroll$={() => {
+  if (throttleTimer.value || !scrollEnabled.value) {
+    return;
+  }
+  throttleTimer.value = true;
+  setTimeout(() => {
+    handleScroll$();
+    throttleTimer.value = false;
+  }, 1000);
+}} -->
+
+<section>
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8">
+    <for|media| of=collection>
+      <media-card media=media/>
+    </for>
+  </div>
+</section>
