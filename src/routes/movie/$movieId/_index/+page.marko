@@ -17,7 +17,7 @@ $ const moviePromise = getMovie({ context, id: params.movieId });
 
   <@then|movie|>
     <div class="flex flex-col">
-      <movie-info-card media=movie/>
+      <media-info-card media=movie/>
       <person-carousel collection=(movie.credits?.cast || []) title="Cast"/>
     </div>
   </@then>

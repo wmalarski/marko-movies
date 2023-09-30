@@ -18,7 +18,7 @@ $ const tvShowPromise = getTvShow({ context, id: params.tvId });
 
     <@then|tvShow|>
       <tv-hero media=tvShow/>
-      <movie-info-card media=tvShow/>
+      <media-info-card media=tvShow/>
       <person-carousel collection=(tvShow?.credits?.cast || []) title="Cast"/>
     </@then>
 
