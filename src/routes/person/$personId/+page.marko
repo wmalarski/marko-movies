@@ -1,0 +1,38 @@
+import { getPerson, getTMDBContext } from "../../../services/tmbd";
+import { number, coerce, minValue, integer, parse, object } from "valibot";
+$ const params = parse(
+  object({
+    personId: coerce(number([minValue(0), integer()]), Number),
+  }),
+  $global.params
+);
+$ const context = getTMDBContext($global);
+$ const personPromise = getPerson({ context, id: params.personId });
+
+<await(personPromise) client-reorder>
+  <@placeholder>
+    <label>
+      Loading…
+      <progress/>
+    </label>
+  </@placeholder>
+
+  <@then|person|>
+    <div class="max-h-screen overflow-y-scroll flex flex-col">
+      <person-hero person=person/>
+      <media-grid
+        collection=[
+          ...(person.combined_credits?.cast || []),
+          ...(person.combined_credits?.crew || []),
+        ]
+        currentPage=0
+        pageCount=1
+      />
+      <page-footer/>
+    </div>
+  </@then>
+
+  <@catch|err|>
+    <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
+  </@catch>
+</await>
