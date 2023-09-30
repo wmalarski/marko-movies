@@ -1,19 +1,17 @@
 import { coerce, integer, minValue, number, object, parseAsync } from "valibot";
-import { getMediaByGenre, getTMDBContext } from "../../../../../services/tmdb";
+import { getMediaByGenre } from "../../../../../services/tmdb";
 
-export const GET: MarkoRun.Handler = async (ctx) => {
+export const GET: MarkoRun.Handler = async (context) => {
   const parseResult = await parseAsync(
     object({
       genreId: coerce(number([minValue(0), integer()]), Number),
       page: coerce(number([integer(), minValue(1)]), Number),
     }),
-    { ...ctx.params, ...Object.fromEntries(ctx.url.searchParams) },
+    { ...context.params, ...Object.fromEntries(context.url.searchParams) },
   );
 
-  const context = getTMDBContext();
-
   const movies = await getMediaByGenre({
-    context,
+    context: context.tmdb,
     genre: parseResult.genreId,
     media: "movie",
     page: parseResult.page,

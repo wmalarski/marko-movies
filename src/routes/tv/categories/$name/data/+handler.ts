@@ -8,27 +8,22 @@ import {
   parseAsync,
   string,
 } from "valibot";
-import {
-  getTMDBContext,
-  getTrendingTv,
-  getTvShows,
-} from "../../../../../services/tmdb";
+import { getTrendingTv, getTvShows } from "../../../../../services/tmdb";
 
-export const GET: MarkoRun.Handler = async (ctx) => {
+export const GET: MarkoRun.Handler = async (context) => {
   const parseResult = await parseAsync(
     object({
       name: string([minLength(1)]),
       page: coerce(number([integer(), minValue(1)]), Number),
     }),
-    { ...ctx.params, ...Object.fromEntries(ctx.url.searchParams) },
+    { ...context.params, ...Object.fromEntries(context.url.searchParams) },
   );
 
-  const context = getTMDBContext();
   const tvShows =
     parseResult.name === "trending"
-      ? await getTrendingTv({ context, page: parseResult.page })
+      ? await getTrendingTv({ context: context.tmdb, page: parseResult.page })
       : await getTvShows({
-          context,
+          context: context.tmdb,
           page: parseResult.page,
           query: parseResult.name,
         });

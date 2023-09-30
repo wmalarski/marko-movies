@@ -1,5 +1,4 @@
 import {
-  getTMDBContext,
   getTrendingTv,
   getTvShows,
 } from "../../../../services/tmdb";
@@ -9,12 +8,11 @@ $ const parseResult = parse(
   object({ name: string([minLength(1)]) }),
   $global.params
 );
-$ const context = getTMDBContext();
 $ const name = parseResult.name;
 $ const tvShowsPromise = (
   name === "trending"
-    ? getTrendingTv({ context, page: 1 })
-    : getTvShows({ context, page: 1, query: name })
+    ? getTrendingTv({ context: $global.tmdb, page: 1 })
+    : getTvShows({ context: $global.tmdb, page: 1, query: name })
 );
 
 // const location = useLocation();
@@ -61,4 +59,5 @@ $ const tvShowsPromise = (
 export const head: DocumentHead = {
   title: "Qwik City Movies",
 }; -->
+
 

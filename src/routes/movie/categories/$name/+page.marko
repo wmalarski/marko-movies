@@ -1,6 +1,5 @@
 import {
   getMovies,
-  getTMDBContext,
   getTrendingMovie,
 } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
@@ -9,12 +8,11 @@ $ const parseResult = parse(
   object({ name: string([minLength(1)]) }),
   $global.params
 );
-$ const context = getTMDBContext();
 $ const name = parseResult.name;
 $ const movies = (
   name === "trending"
-    ? getTrendingMovie({ context, page: 1 })
-    : getMovies({ context, page: 1, query: name })
+    ? getTrendingMovie({ context: $global.tmdb, page: 1 })
+    : getMovies({ context: $global.tmdb, page: 1, query: name })
 );
 
 <!-- const containerRef = useSignal<Element | null>(null); -->

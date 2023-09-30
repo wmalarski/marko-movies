@@ -8,20 +8,18 @@ import {
   parseAsync,
   string,
 } from "valibot";
-import { getTMDBContext, search } from "../../../services/tmdb";
+import { search } from "../../../services/tmdb";
 
-export const GET: MarkoRun.Handler = async (ctx) => {
+export const GET: MarkoRun.Handler = async (context) => {
   const parseResult = await parseAsync(
     object({
       query: optional(string(), ""),
       page: coerce(number([integer(), minValue(1)]), Number),
     }),
-    Object.fromEntries(ctx.url.searchParams),
+    Object.fromEntries(context.url.searchParams),
   );
 
-  const context = getTMDBContext();
-
-  const result = await search({ context, ...parseResult });
+  const result = await search({ context: context.tmdb, ...parseResult });
 
   return new Response(JSON.stringify(result), { status: 200 });
 };

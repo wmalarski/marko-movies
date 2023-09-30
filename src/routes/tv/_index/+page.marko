@@ -1,14 +1,12 @@
 import {
   getRandomMedia,
-  getTMDBContext,
   getTvShows,
 } from "../../../services/tmdb";
 import { getListItem } from "../../../utils/format";
 import { paths } from "../../../utils/paths";
-$ const context = getTMDBContext();
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const popularPromise = getTvShows({ context, page: 1, query: "popular" });
+  $ const popularPromise = getTvShows({ context: $global.tmdb, page: 1, query: "popular" });
 
   <await(popularPromise) client-reorder>
     <@placeholder>
@@ -37,7 +35,7 @@ $ const context = getTMDBContext();
     </@catch>
   </await>
   $ const topRatedPromise = getTvShows({
-    context,
+    context: $global.tmdb,
     page: 1,
     query: "top_rated",
   });
@@ -62,7 +60,7 @@ $ const context = getTMDBContext();
     </@catch>
   </await>
   $ const onTheAirPromise = getTvShows({
-    context,
+    context: $global.tmdb,
     page: 1,
     query: "on_the_air",
   });
@@ -87,7 +85,7 @@ $ const context = getTMDBContext();
     </@catch>
   </await>
   $ const airingTodayPromise = getTvShows({
-    context,
+    context: $global.tmdb,
     page: 1,
     query: "airing_today",
   });
@@ -114,4 +112,5 @@ $ const context = getTMDBContext();
 
   <page-footer/>
 </div>
+
 

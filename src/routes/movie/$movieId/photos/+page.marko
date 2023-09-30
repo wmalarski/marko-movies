@@ -1,12 +1,11 @@
 import { getImage, getImageSet } from "../../../../services/images";
-import { getMovie, getTMDBContext } from "../../../../services/tmdb";
+import { getMovie } from "../../../../services/tmdb";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
 $ const paramsSchema = object({
   movieId: coerce(number([minValue(0), integer()]), Number),
 });
 $ const params = parse(paramsSchema, $global.params);
-$ const context = getTMDBContext();
-$ const moviePromise = getMovie({ context, id: params.movieId });
+$ const moviePromise = getMovie({ context: $global.tmdb, id: params.movieId });
 
 <await(moviePromise) client-reorder>
   <@placeholder>
@@ -69,3 +68,4 @@ $ const moviePromise = getMovie({ context, id: params.movieId });
     <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
   </@catch>
 </await>
+

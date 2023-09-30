@@ -1,4 +1,4 @@
-import { getPerson, getTMDBContext } from "../../../services/tmdb";
+import { getPerson } from "../../../services/tmdb";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
 $ const params = parse(
   object({
@@ -6,8 +6,7 @@ $ const params = parse(
   }),
   $global.params
 );
-$ const context = getTMDBContext();
-$ const personPromise = getPerson({ context, id: params.personId });
+$ const personPromise = getPerson({ context: $global.tmdb, id: params.personId });
 
 <await(personPromise) client-reorder>
   <@placeholder>

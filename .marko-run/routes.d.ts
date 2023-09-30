@@ -15,19 +15,84 @@ declare module "@marko/run" {
 				meta: typeof import("../src/routes/_index/+meta.json");
 			};
 			"/genre/:genreId/movie": { verb: "get" };
+			"/genre/:genreId/movie/data": { verb: "get" };
 			"/genre/:genreId/tv": { verb: "get" };
+			"/genre/:genreId/tv/data": { verb: "get" };
 			"/movie/:movieId": { verb: "get" };
 			"/movie/:movieId/photos": { verb: "get" };
 			"/movie/:movieId/videos": { verb: "get" };
 			"/movie": { verb: "get" };
 			"/movie/categories/:name": { verb: "get" };
+			"/movie/categories/:name/data": { verb: "get" };
 			"/person/:personId": { verb: "get" };
 			"/search": { verb: "get" };
+			"/search/data": { verb: "get" };
 			"/tv/:tvId": { verb: "get" };
 			"/tv": { verb: "get" };
 			"/tv/categories/:name": { verb: "get" };
+			"/tv/categories/:name/data": { verb: "get" };
 		}
 	}> {}
+}
+
+declare module "../src/routes/genre/$genreId/movie/data/+handler" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/genre/:genreId/movie/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/genre/$genreId/tv/data/+handler" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/genre/:genreId/tv/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/movie/categories/$name/data/+handler" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/movie/categories/:name/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/search/data/+handler" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/search/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/tv/categories/$name/data/+handler" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/tv/categories/:name/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/+middleware" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/" | "/genre/:genreId/movie" | "/genre/:genreId/movie/data" | "/genre/:genreId/tv" | "/genre/:genreId/tv/data" | "/movie/:movieId" | "/movie/:movieId/photos" | "/movie/:movieId/videos" | "/movie" | "/movie/categories/:name" | "/movie/categories/:name/data" | "/person/:personId" | "/search" | "/search/data" | "/tv/:tvId" | "/tv" | "/tv/categories/:name" | "/tv/categories/:name/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
 }
 
 declare module "../src/routes/_index/+page.marko" {

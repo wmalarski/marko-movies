@@ -1,11 +1,10 @@
-import { getTMDBContext, getTvShow } from "../../../services/tmdb";
+import { getTvShow } from "../../../services/tmdb";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
 $ const params = parse(
   object({ tvId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
 );
-$ const context = getTMDBContext();
-$ const tvShowPromise = getTvShow({ context, id: params.tvId });
+$ const tvShowPromise = getTvShow({ context: $global.tmdb, id: params.tvId });
 
 <div class="flex max-h-screen flex-col overflow-y-scroll">
   <await(tvShowPromise) client-reorder>
@@ -29,4 +28,5 @@ $ const tvShowPromise = getTvShow({ context, id: params.tvId });
 
   <page-footer/>
 </div>
+
 

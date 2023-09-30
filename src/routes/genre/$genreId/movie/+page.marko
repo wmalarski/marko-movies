@@ -1,12 +1,11 @@
-import { getMediaByGenre, getTMDBContext } from "../../../../services/tmdb";
+import { getMediaByGenre } from "../../../../services/tmdb";
 import { object, number, coerce, integer, minValue, parse } from "valibot";
 $ const parseResult = parse(
   object({ genreId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
 );
-$ const context = getTMDBContext();
 $ const moviesPromise = getMediaByGenre({
-  context,
+  context: $global.tmdb,
   genre: parseResult.genreId,
   media: "movie",
   page: 1,
@@ -30,7 +29,7 @@ const collection = useSignal<MediaBase[]>(movies.value.results); -->
 
     <@then|movies|>
       <h1 class="px-8 pt-4 text-4xl">
-        ${`Movie Genre: ${movies?.genre?.name || "Not defined"}`}
+        Movie Genre: ${movies?.genre?.name || "Not defined"}
       </h1>
       <media-grid collection=movies.results currentPage=0 pageCount=1/>
     </@then>
@@ -57,4 +56,5 @@ const collection = useSignal<MediaBase[]>(movies.value.results); -->
 //     : {};
 
 // };
+
 
