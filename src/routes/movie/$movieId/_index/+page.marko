@@ -1,9 +1,9 @@
 import { getMovie, getTMDBContext } from "../../../../services/tmbd";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
-$ const paramsSchema = object({
-  movieId: coerce(number([minValue(0), integer()]), Number),
-});
-$ const params = parse(paramsSchema, $global.params);
+$ const params = parse(
+  object({ movieId: coerce(number([minValue(0), integer()]), Number) }),
+  $global.params
+);
 $ const context = getTMDBContext($global);
 $ const moviePromise = getMovie({ context, id: params.movieId });
 

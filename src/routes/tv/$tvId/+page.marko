@@ -1,0 +1,31 @@
+import { getTMDBContext, getTvShow } from "../../../services/tmbd";
+import { number, coerce, minValue, integer, parse, object } from "valibot";
+$ const params = parse(
+  object({ tvId: coerce(number([minValue(0), integer()]), Number) }),
+  $global.params
+);
+$ const context = getTMDBContext($global);
+$ const tvShowPromise = getTvShow({ context, id: params.tvId });
+
+<div class="flex max-h-screen flex-col overflow-y-scroll">
+  <await(tvShowPromise) client-reorder>
+    <@placeholder>
+      <label>
+        Loading…
+        <progress/>
+      </label>
+    </@placeholder>
+
+    <@then|tvShow|>
+      <tv-hero media=tvShow/>
+      <movie-info-card media=tvShow/>
+      <person-carousel collection=(tvShow?.credits?.cast || []) title="Cast"/>
+    </@then>
+
+    <@catch|err|>
+      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
+    </@catch>
+  </await>
+
+  <page-footer/>
+</div>
