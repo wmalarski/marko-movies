@@ -2,10 +2,10 @@ import {
   getRandomMedia,
   getTMDBContext,
   getTvShows,
-} from "../../../services/tmbd";
+} from "../../../services/tmdb";
 import { getListItem } from "../../../utils/format";
 import { paths } from "../../../utils/paths";
-$ const context = getTMDBContext($global);
+$ const context = getTMDBContext();
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const popularPromise = getTvShows({ context, page: 1, query: "popular" });
@@ -114,3 +114,4 @@ $ const context = getTMDBContext($global);
 
   <page-footer/>
 </div>
+

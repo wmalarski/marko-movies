@@ -1,10 +1,10 @@
-import { getMovie, getTMDBContext } from "../../../../services/tmbd";
+import { getMovie, getTMDBContext } from "../../../../services/tmdb";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
 $ const params = parse(
   object({ movieId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
 );
-$ const context = getTMDBContext($global);
+$ const context = getTMDBContext();
 $ const moviePromise = getMovie({ context, id: params.movieId });
 
 <await(moviePromise) client-reorder>

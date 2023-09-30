@@ -1,10 +1,10 @@
-import { getMediaByGenre, getTMDBContext } from "../../../../services/tmbd";
+import { getMediaByGenre, getTMDBContext } from "../../../../services/tmdb";
 import { object, number, coerce, integer, minValue, parse } from "valibot";
 $ const parseResult = parse(
   object({ genreId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
 );
-$ const context = getTMDBContext($global);
+$ const context = getTMDBContext();
 $ const tvShowsPromise = getMediaByGenre({
   context,
   genre: parseResult.genreId,
@@ -58,4 +58,5 @@ const collection = useSignal<MediaBase[]>(tvShows.value.results); -->
 //     : {};
 
 // };
+
 

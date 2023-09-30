@@ -2,14 +2,14 @@ import {
   getTMDBContext,
   getTrendingTv,
   getTvShows,
-} from "../../../../services/tmbd";
+} from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
 import { object, string, minLength, parse } from "valibot";
 $ const parseResult = parse(
   object({ name: string([minLength(1)]) }),
   $global.params
 );
-$ const context = getTMDBContext($global);
+$ const context = getTMDBContext();
 $ const name = parseResult.name;
 $ const tvShowsPromise = (
   name === "trending"
@@ -61,3 +61,4 @@ $ const tvShowsPromise = (
 export const head: DocumentHead = {
   title: "Qwik City Movies",
 }; -->
+

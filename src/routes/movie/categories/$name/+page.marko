@@ -2,14 +2,14 @@ import {
   getMovies,
   getTMDBContext,
   getTrendingMovie,
-} from "../../../../services/tmbd";
+} from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
 import { object, string, minLength, parse } from "valibot";
 $ const parseResult = parse(
   object({ name: string([minLength(1)]) }),
   $global.params
 );
-$ const context = getTMDBContext($global);
+$ const context = getTMDBContext();
 $ const name = parseResult.name;
 $ const movies = (
   name === "trending"
@@ -54,3 +54,4 @@ collection.value = [...collection.value, ...newMedia];
 currentPage.value += 1;
 }
 ) -->
+

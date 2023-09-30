@@ -12,7 +12,7 @@ import {
   getTMDBContext,
   getTrendingTv,
   getTvShows,
-} from "../../../../../services/tmbd";
+} from "../../../../../services/tmdb";
 
 export const GET: MarkoRun.Handler = async (ctx) => {
   const parseResult = await parseAsync(
@@ -23,7 +23,7 @@ export const GET: MarkoRun.Handler = async (ctx) => {
     { ...ctx.params, ...Object.fromEntries(ctx.url.searchParams) },
   );
 
-  const context = getTMDBContext(ctx);
+  const context = getTMDBContext();
   const tvShows =
     parseResult.name === "trending"
       ? await getTrendingTv({ context, page: parseResult.page })

@@ -11,14 +11,14 @@ import {
   TvExtraDetails,
 } from "./types";
 
-export const getTMDBContext = (context: MarkoRun.Context) => {
+export const getTMDBContext = () => {
   return {
     apiKey: (import.meta as any).env.VITE_TMDB_API_KEY,
     baseURL: "https://api.themoviedb.org/3",
   };
 };
 
-type TMDBContext = ReturnType<typeof getTMDBContext>;
+export type TMDBContext = ReturnType<typeof getTMDBContext>;
 
 type FetchTMDBArgs = {
   context: TMDBContext;

@@ -1,6 +1,6 @@
-import { getTMDBContext, search } from "../../services/tmbd";
+import { getTMDBContext, search } from "../../services/tmdb";
 $ const query = $global.url.searchParams.get("query");
-$ const context = getTMDBContext($global);
+$ const context = getTMDBContext();
 $ const searchPromise = search({ context, page: 1, query: query || "" });
 
 <!-- const containerRef = useSignal<Element | null>(null);
@@ -49,3 +49,4 @@ const collection = useSignal<MediaBase[]>(resource.value?.results || []); -->
 export const head: DocumentHead = {
   title: "Search - Qwik City Movies",
 }; -->
+

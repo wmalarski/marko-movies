@@ -1,4 +1,4 @@
-import { getMovie, getTMDBContext } from "../../../services/tmbd";
+import { getMovie, getTMDBContext } from "../../../services/tmdb";
 import { paths } from "../../../utils/paths";
 import { number, minValue, integer, parse, coerce, object } from "valibot";
 import { twCx } from "../../../utils/twCx";
@@ -12,7 +12,7 @@ $ const { renderBody } = input;
     movieId: coerce(number([minValue(0), integer()]), Number),
   });
   $ const params = parse(paramsSchema, $global.params);
-  $ const context = getTMDBContext($global);
+  $ const context = getTMDBContext();
   $ const moviePromise = getMovie({ context, id: params.movieId });
 
   <await(moviePromise) client-reorder>
@@ -77,3 +77,4 @@ $ const { renderBody } = input;
   ${renderBody}
   <page-footer/>
 </div>
+

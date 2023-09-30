@@ -8,7 +8,7 @@ import {
   parseAsync,
   string,
 } from "valibot";
-import { getTMDBContext, search } from "../../../services/tmbd";
+import { getTMDBContext, search } from "../../../services/tmdb";
 
 export const GET: MarkoRun.Handler = async (ctx) => {
   const parseResult = await parseAsync(
@@ -19,7 +19,7 @@ export const GET: MarkoRun.Handler = async (ctx) => {
     Object.fromEntries(ctx.url.searchParams),
   );
 
-  const context = getTMDBContext(ctx);
+  const context = getTMDBContext();
 
   const result = await search({ context, ...parseResult });
 

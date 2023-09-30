@@ -3,12 +3,12 @@ import {
   getTMDBContext,
   getTrendingMovie,
   getTrendingTv,
-} from "../../services/tmbd";
+} from "../../services/tmdb";
 import { paths } from "../../utils/paths";
 import { getListItem } from "../../utils/format";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const context = getTMDBContext($global);
+  $ const context = getTMDBContext();
   $ const movies = getTrendingMovie({ context, page: 1 });
 
   <await(movies) client-reorder>
