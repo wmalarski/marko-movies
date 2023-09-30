@@ -33,7 +33,7 @@ const collection = useSignal<MediaBase[]>(resource.value?.results || []); -->
 
 <div class="flex max-h-screen flex-col overflow-y-scroll">
   <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
-    <!-- <ImgMagnifier alt="search" aria-label="Search" class="w-6 h-6" /> -->
+    <img alt="search" src="../../media/magnifier.svg" aria-label="Search" class="w-6 h-6" />
     <input aria-label="query" class="input" id="query" name="query" value=query>
     <button class="btn" type="submit">
       Search
