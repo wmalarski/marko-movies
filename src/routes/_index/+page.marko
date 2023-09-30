@@ -33,7 +33,7 @@ import { getListItem } from "../../utils/format";
       <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
     </@catch>
   </await>
-  $ const tvs = getTrendingTv({ context, page: 1 });
+  $ const tvs = getTrendingTv({ context: $global.tmdb, page: 1 });
   <await(tvs) client-reorder>
     <@placeholder>
       <label>
@@ -56,4 +56,3 @@ import { getListItem } from "../../utils/format";
   </await>
   <page-footer/>
 </div>
-

@@ -1,5 +1,5 @@
 declare module "@marko/run" {
-  interface Context {
+  export interface Context {
     tmdb: import("../services/tmdb").TMDBContext;
   }
 }

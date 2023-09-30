@@ -5,14 +5,16 @@ import { twCx } from "../../../utils/twCx";
 export interface Input {
   renderBody: Marko.Body;
 }
-$ const { renderBody } = input;
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const paramsSchema = object({
     movieId: coerce(number([minValue(0), integer()]), Number),
   });
   $ const params = parse(paramsSchema, $global.params);
-  $ const moviePromise = getMovie({ context: $global.tmdb, id: params.movieId });
+  $ const moviePromise = getMovie({
+    context: $global.tmdb,
+    id: params.movieId,
+  });
 
   <await(moviePromise) client-reorder>
     <@placeholder>
@@ -73,7 +75,6 @@ $ const { renderBody } = input;
       Photos
     </a>
   </div>
-  ${renderBody}
+  <${input.renderBody}/>
   <page-footer/>
 </div>
-

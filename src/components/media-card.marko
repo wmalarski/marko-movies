@@ -8,7 +8,7 @@ export interface Input {
 $ const { media } = input;
 $ const heading = getHeading(media);
 
-<a href=paths.media(media.media_type, media.id) class="w-48">
+<a href=paths.media(media.media_type, media.id) class="block w-48">
   <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
     <picture>
       <img
@@ -21,6 +21,8 @@ $ const heading = getHeading(media);
       >
     </picture>
   </div>
-  <span>${heading}</span>
+  <span class="text-ellipsis">
+    ${heading}
+  </span>
   <stars rating=media.vote_average/>
 </a>
