@@ -9,7 +9,7 @@ import "./index.css";
     <meta name="description" content="A basic Marko app.">
     <title>${$global.meta.pageTitle || "Marko"}</title>
   </head>
-  <body class="flex h-screen w-screen flex-col-reverse md:flex-row">
+  <body class="bg-black text-neutral-200 flex h-screen w-screen flex-col-reverse md:flex-row">
     <navbar/>
     <main class="w-full max-w-full overflow-x-hidden">
       <${input.renderBody}/>
