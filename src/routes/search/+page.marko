@@ -2,27 +2,6 @@ import { getTMDBContext, search } from "../../services/tmbd";
 $ const query = $global.url.searchParams.get("query");
 $ const context = getTMDBContext($global);
 $ const searchPromise = search({ context, page: 1, query: query || "" });
-// export const getMore = server$(async function (page: number) {
-
-//   const parseResult = await z
-
-//     .object({
-
-//       page: z.coerce.number().min(1).int().default(1),
-
-//       query: z.string().optional().default(""),
-
-//     })
-
-//     .parseAsync({ page, query: this.query.get("query") });
-
-//   const context = getTMDBContext(this);
-
-//   const result = await search({ context, ...parseResult });
-
-//   return { query: parseResult.query, ...result };
-
-// });
 
 <!-- const containerRef = useSignal<Element | null>(null);
 

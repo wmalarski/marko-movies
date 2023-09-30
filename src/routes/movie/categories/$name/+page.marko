@@ -16,33 +16,6 @@ $ const movies = (
     ? getTrendingMovie({ context, page: 1 })
     : getMovies({ context, page: 1, query: name })
 );
-// export const getMore = server$(async function (page: number) {
-
-//   const parseResult = await z
-
-//     .object({
-
-//       page: z.coerce.number().int().min(1).default(1),
-
-//       query: z.string().min(1),
-
-//     })
-
-//     .parseAsync({ page, query: this.params.name });
-
-//   const context = getTMDBContext(this);
-
-//   const movies =
-
-//     parseResult.query === "trending"
-
-//       ? await getTrendingMovie({ context, page: parseResult.page })
-
-//       : await getMovies({ context, ...parseResult });
-
-//   return movies;
-
-// });
 
 <!-- const containerRef = useSignal<Element | null>(null); -->
 <!-- $ const resource = useCategoryLoader(); -->
