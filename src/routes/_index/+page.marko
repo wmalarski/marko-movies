@@ -9,6 +9,10 @@ import { getListItem } from "../../utils/format";
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const movies = getTrendingMovie({ context: $global.tmdb, page: 1 });
 
+  <button on-click((event) => console.log("EVENT", event))>
+    AAA
+  </button>
+
   <await(movies) client-reorder>
     <@placeholder>
       <label>

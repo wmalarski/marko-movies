@@ -10,7 +10,6 @@ $ const moviesPromise = getMediaByGenre({
   media: "movie",
   page: 1,
 });
-
 <!-- const containerRef = useSignal<Element | null>(null);
 
 const movies = useGenreMovies();
@@ -31,7 +30,15 @@ const collection = useSignal<MediaBase[]>(movies.value.results); -->
       <h1 class="px-8 pt-4 text-4xl">
         Movie Genre: ${movies?.genre?.name || "Not defined"}
       </h1>
-      <media-grid collection=movies.results currentPage=0 pageCount=1/>
+      <media-grid
+        collection=movies.results
+        hasMore=false
+        onLoadMore(
+          () => {
+            //
+          }
+        )
+      />
     </@then>
 
     <@catch|err|>
@@ -56,5 +63,4 @@ const collection = useSignal<MediaBase[]>(movies.value.results); -->
 //     : {};
 
 // };
-
 

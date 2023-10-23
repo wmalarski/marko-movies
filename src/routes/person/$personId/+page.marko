@@ -24,8 +24,10 @@ $ const personPromise = getPerson({ context: $global.tmdb, id: params.personId }
           ...(person.combined_credits?.cast || []),
           ...(person.combined_credits?.crew || []),
         ]
-        currentPage=0
-        pageCount=1
+        hasMore=false
+        onLoadMore(() => {
+          //
+        })
       />
       <page-footer/>
     </div>

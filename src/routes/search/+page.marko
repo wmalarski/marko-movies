@@ -1,7 +1,10 @@
 import { search } from "../../services/tmdb";
 $ const query = $global.url.searchParams.get("query");
-$ const searchPromise = search({ context: $global.tmdb, page: 1, query: query || "" });
-
+$ const searchPromise = search({
+  context: $global.tmdb,
+  page: 1,
+  query: query || "",
+});
 <!-- const containerRef = useSignal<Element | null>(null);
 
 const resource = useSearchLoader();
@@ -11,7 +14,12 @@ const collection = useSignal<MediaBase[]>(resource.value?.results || []); -->
 
 <div class="flex max-h-screen flex-col overflow-y-scroll">
   <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
-    <img alt="search" src="../../media/magnifier.svg" aria-label="Search" class="w-6 h-6" />
+    <img
+      alt="search"
+      src="../../media/magnifier.svg"
+      aria-label="Search"
+      class="w-6 h-6"
+    >
     <input aria-label="query" class="input" id="query" name="query" value=query>
     <button class="btn" type="submit">
       Search
@@ -28,7 +36,15 @@ const collection = useSignal<MediaBase[]>(resource.value?.results || []); -->
 
     <@then|search|>
 
-      <media-grid collection=search.results || [] currentPage=0 pageCount=1/>
+      <media-grid
+        collection=search.results || []
+        hasMore=false
+        onLoadMore(
+          () => {
+            //
+          }
+        )
+      />
     </@then>
 
     <@catch|err|>
@@ -48,5 +64,3 @@ const collection = useSignal<MediaBase[]>(resource.value?.results || []); -->
 export const head: DocumentHead = {
   title: "Search - Qwik City Movies",
 }; -->
-
-

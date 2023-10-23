@@ -1,7 +1,4 @@
-import {
-  getMovies,
-  getTrendingMovie,
-} from "../../../../services/tmdb";
+import { getMovies, getTrendingMovie } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
 import { object, string, minLength, parse } from "valibot";
 $ const parseResult = parse(
@@ -15,11 +12,18 @@ $ const movies = (
     : getMovies({ context: $global.tmdb, page: 1, query: name })
 );
 
-<div class="flex max-h-screen flex-col overflow-y-scroll">
+<div
+  class="flex max-h-screen flex-col overflow-y-scroll"
+  on-scroll((event) => console.log("SCROLL2", event))
+>
   <h1 class="px-8 pt-4 text-4xl">
     ${getListItem({ query: parseResult.name, type: "movie" })}
   </h1>
-  <div>
+  <button on-click((event) => console.log("EVENT", event))>
+    AAA
+  </button>
+
+  <div on-scroll((event) => console.log("SCROLL", event))>
 
     <await(movies) client-reorder>
       <@placeholder>
@@ -30,7 +34,16 @@ $ const movies = (
       </@placeholder>
 
       <@then|movies|>
-        <media-grid collection=movies.results || [] currentPage=0 pageCount=1/>
+
+        <media-grid
+          collection=movies.results || []
+          hasMore=false
+          onLoadMore=(
+            () => {
+              console.log("onLoadMore");
+            }
+          )
+        />
       </@then>
 
       <@catch|err|>
@@ -47,4 +60,3 @@ collection.value = [...collection.value, ...newMedia];
 currentPage.value += 1;
 }
 ) -->
-

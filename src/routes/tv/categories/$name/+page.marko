@@ -1,7 +1,4 @@
-import {
-  getTrendingTv,
-  getTvShows,
-} from "../../../../services/tmdb";
+import { getTrendingTv, getTvShows } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
 import { object, string, minLength, parse } from "valibot";
 $ const parseResult = parse(
@@ -14,7 +11,6 @@ $ const tvShowsPromise = (
     ? getTrendingTv({ context: $global.tmdb, page: 1 })
     : getTvShows({ context: $global.tmdb, page: 1, query: name })
 );
-
 // const location = useLocation();
 
 // const containerRef = useSignal<Element | null>(null);
@@ -41,7 +37,15 @@ $ const tvShowsPromise = (
       </@placeholder>
 
       <@then|tvShows|>
-        <media-grid collection=tvShows.results || [] currentPage=0 pageCount=1/>
+        <media-grid
+          collection=tvShows.results || []
+          hasMore=false
+          onLoadMore(
+            () => {
+              //
+            }
+          )
+        />
       </@then>
 
       <@catch|err|>
@@ -59,5 +63,3 @@ $ const tvShowsPromise = (
 export const head: DocumentHead = {
   title: "Qwik City Movies",
 }; -->
-
-

@@ -1,12 +1,49 @@
 import { MediaBase } from "../services/types";
 export interface Input {
   collection: MediaBase[];
-  currentPage: number;
-  // onMore$?: QRL<() => void>;
-  pageCount: number;
-  parentContainer?: Element | null;
+  hasMore: boolean;
+  onLoadMore: VoidFunction;
+  threshold?: number;
 }
-$ const { collection, currentPage, pageCount, parentContainer } = input;
+/*
+<script lang="ts">
+	
+	let component: HTMLUListElement | undefined;
+	let isLoadMore: boolean = false;
+
+	const onScroll = (event: Event) => {
+		const element = event.target as HTMLDivElement;
+
+		const offset = horizontal
+			? element.scrollWidth - element.clientWidth - element.scrollLeft
+			: element.scrollHeight - element.clientHeight - element.scrollTop;
+
+		if (offset <= threshold) {
+			if (!isLoadMore && hasMore) {
+				dispatch("loadMore");
+			}
+			isLoadMore = true;
+		} else {
+			isLoadMore = false;
+		}
+	}
+
+	$: {
+		if (component) {
+			component.addEventListener("scroll", onScroll);
+			component.addEventListener("resize", onScroll);
+		}
+	}
+	
+	onDestroy(() => {
+		if (component) {
+			component.removeEventListener("scroll", onScroll);
+			component.removeEventListener("resize", onScroll);
+		}
+	});
+
+</script>
+*/
 <!-- const throttleTimer = useSignal(false); -->
 <!-- const scrollEnabled = useSignal(props.currentPage < props.pageCount); -->
 <!-- const handleScroll$ = $(() => {
@@ -36,10 +73,19 @@ $ const { collection, currentPage, pageCount, parentContainer } = input;
     throttleTimer.value = false;
   }, 1000);
 }} -->
+$ const onScroll = (event: Event) => {
+  console.log("Scroll", event);
+  const element = event.target as HTMLDivElement;
+  console.log("Scroll", element);
+};
 
-<section>
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8">
-    <for|media| of=collection>
+<section on-scroll(onScroll) on-resize(onScroll)>
+  <div
+    class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8"
+    on-scroll(onScroll)
+    on-resize(onScroll)
+  >
+    <for|media| of=input.collection>
       <media-card media=media/>
     </for>
   </div>

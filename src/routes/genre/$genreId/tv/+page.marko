@@ -33,7 +33,13 @@ const collection = useSignal<MediaBase[]>(tvShows.value.results); -->
       <h1 class="px-8 pt-4 text-4xl">
         Tv Show Genre: ${tvShows?.genre?.name || "Not defined"}
       </h1>
-      <media-grid collection=tvShows.results currentPage=0 pageCount=1/>
+      <media-grid 
+        collection=tvShows.results 
+        hasMore=false 
+        onLoadMore(() => {
+        //
+        })
+      />
     </@then>
 
     <@catch|err|>
