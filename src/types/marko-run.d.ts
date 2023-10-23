@@ -4,4 +4,12 @@ declare module "@marko/run" {
   }
 }
 
+declare global {
+  namespace Marko {
+    export interface Global {
+      tmdb: import("../services/tmdb").TMDBContext;
+    }
+  }
+}
+
 export {};
