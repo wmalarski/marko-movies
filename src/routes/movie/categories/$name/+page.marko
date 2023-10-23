@@ -15,11 +15,6 @@ $ const movies = (
     : getMovies({ context: $global.tmdb, page: 1, query: name })
 );
 
-<!-- const containerRef = useSignal<Element | null>(null); -->
-<!-- $ const resource = useCategoryLoader(); -->
-<!-- const currentPage = useSignal(1); -->
-<!-- const collection = useSignal<MediaBase[]>(resource.value.results || []); -->
-
 <div class="flex max-h-screen flex-col overflow-y-scroll">
   <h1 class="px-8 pt-4 text-4xl">
     ${getListItem({ query: parseResult.name, type: "movie" })}

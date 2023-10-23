@@ -13,7 +13,7 @@ import {
 
 export const getTMDBContext = () => {
   return {
-    apiKey: (import.meta as any).env.VITE_TMDB_API_KEY,
+    apiKey: (import.meta as any).env.VITE_TMDB_API_KEY as string,
     baseURL: "https://api.themoviedb.org/3",
   };
 };

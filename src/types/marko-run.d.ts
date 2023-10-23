@@ -3,3 +3,5 @@ declare module "@marko/run" {
     tmdb: import("../services/tmdb").TMDBContext;
   }
 }
+
+export {};

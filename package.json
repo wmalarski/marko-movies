@@ -6,17 +6,16 @@
   "dependencies": {
     "@marko/tags-api-preview": "^0.7.2",
     "clsx": "^2.0.0",
-    "marko": "^5.25.16",
+    "marko": "^5.31.12",
     "tailwind-merge": "^1.14.0",
-    "valibot": "^0.17.1",
-    "vinxi": "^0.0.30"
+    "valibot": "^0.19.0"
   },
   "devDependencies": {
-    "@marko/run": "^0.1.14",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.27",
+    "@marko/run": "^0.2.12",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
-    "vite-tsconfig-paths": "^4.2.0"
+    "vite-tsconfig-paths": "^4.2.1"
   },
   "private": true,
   "scripts": {
