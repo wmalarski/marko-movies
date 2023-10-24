@@ -9,50 +9,28 @@ import { getListItem } from "../../utils/format";
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const movies = getTrendingMovie({ context: $global.tmdb, page: 1 });
 
-  <await(movies) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
+  <await(movies)>
     <@then|movies|>
       $ const random = getRandomMedia({ collections: [movies] });
       <a href=paths.media("movie", random.id)>
         <movie-hero media=random/>
       </a>
-      <media-carousel
-        collection=movies.results || []
-        title=getListItem({ query: "trending", type: "movie" })
-        viewAllHref=paths.movieCategory("trending")
-      />
     </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
   </await>
+
+  <media-carousel
+    collection=movies
+    title=getListItem({ query: "trending", type: "movie" })
+    viewAllHref=paths.movieCategory("trending")
+    clientReorder
+  />
   $ const tvs = getTrendingTv({ context: $global.tmdb, page: 1 });
-  <await(tvs) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
+  <media-carousel
+    collection=tvs
+    title=getListItem({ query: "trending", type: "tv" })
+    viewAllHref=paths.tvCategory("trending")
+    clientReorder
+  />
 
-    <@then|tvs|>
-      <media-carousel
-        collection=tvs.results || []
-        title=getListItem({ query: "trending", type: "tv" })
-        viewAllHref=paths.tvCategory("trending")
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
   <page-footer/>
 </div>

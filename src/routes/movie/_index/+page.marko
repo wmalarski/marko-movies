@@ -1,81 +1,50 @@
-import {
-  getMovies,
-  getRandomMedia,
-} from "../../../services/tmdb";
+import { getMovies, getRandomMedia } from "../../../services/tmdb";
 import { getListItem } from "../../../utils/format";
 import { paths } from "../../../utils/paths";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const popular = getMovies({ context: $global.tmdb, page: 1, query: "popular" });
+  $ const popular = getMovies({
+    context: $global.tmdb,
+    page: 1,
+    query: "popular",
+  });
 
-  <await(popular) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
+  <await(popular)>
     <@then|popular|>
       $ const random = getRandomMedia({ collections: [popular] });
       <a href=paths.media("movie", random.id)>
         <movie-hero media=random/>
       </a>
-
-      <media-carousel
-        collection=popular?.results || []
-        title=getListItem({ query: "popular", type: "movie" })
-        viewAllHref=paths.movieCategory("popular")
-      />
     </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
   </await>
-  $ const topRated = getMovies({ context: $global.tmdb, page: 1, query: "top_rated" });
-  <await(topRated) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|topRated|>
-      <media-carousel
-        collection=topRated?.results || []
-        title=getListItem({ query: "top_rated", type: "movie" })
-        viewAllHref=paths.movieCategory("top_rated")
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
-  $ const nowPlaying = getMovies({ context: $global.tmdb, page: 1, query: "now_playing" });
-  <await(nowPlaying) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|nowPlaying|>
-      <media-carousel
-        collection=nowPlaying?.results || []
-        title=getListItem({ query: "now_playing", type: "movie" })
-        viewAllHref=paths.movieCategory("now_playing")
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
+  <media-carousel
+    collection=popular
+    title=getListItem({ query: "popular", type: "movie" })
+    viewAllHref=paths.movieCategory("popular")
+    clientReorder
+  />
+  $ const topRated = getMovies({
+    context: $global.tmdb,
+    page: 1,
+    query: "top_rated",
+  });
+  <media-carousel
+    collection=topRated
+    title=getListItem({ query: "top_rated", type: "movie" })
+    viewAllHref=paths.movieCategory("top_rated")
+    clientReorder
+  />
+  $ const nowPlaying = getMovies({
+    context: $global.tmdb,
+    page: 1,
+    query: "now_playing",
+  });
+  <media-carousel
+    collection=nowPlaying
+    title=getListItem({ query: "now_playing", type: "movie" })
+    viewAllHref=paths.movieCategory("now_playing")
+    clientReorder
+  />
 
   <page-footer/>
 </div>
-

@@ -1,21 +1,15 @@
-import {
-  getRandomMedia,
-  getTvShows,
-} from "../../../services/tmdb";
+import { getRandomMedia, getTvShows } from "../../../services/tmdb";
 import { getListItem } from "../../../utils/format";
 import { paths } from "../../../utils/paths";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const popularPromise = getTvShows({ context: $global.tmdb, page: 1, query: "popular" });
+  $ const popular = getTvShows({
+    context: $global.tmdb,
+    page: 1,
+    query: "popular",
+  });
 
-  <await(popularPromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
+  <await(popular)>
     <@then|popular|>
       $ const random = getRandomMedia({
         collections: [popular],
@@ -23,94 +17,44 @@ import { paths } from "../../../utils/paths";
       <a href=paths.media("tv", random?.id)>
         <tv-hero media=random/>
       </a>
-      <media-carousel
-        collection=popular?.results || []
-        title=getListItem({ query: "popular", type: "tv" })
-        viewAllHref=paths.tvCategory("popular")
-      />
     </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
   </await>
-  $ const topRatedPromise = getTvShows({
+  <media-carousel
+    collection=popular
+    title=getListItem({ query: "popular", type: "tv" })
+    viewAllHref=paths.tvCategory("popular")
+    clientReorder
+  />
+  $ const topRated = getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "top_rated",
   });
-  <await(topRatedPromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|topRated|>
-      <media-carousel
-        collection=topRated?.results || []
-        title=getListItem({ query: "top_rated", type: "tv" })
-        viewAllHref=paths.tvCategory("top_rated")
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
-  $ const onTheAirPromise = getTvShows({
+  <media-carousel
+    collection=topRated
+    title=getListItem({ query: "top_rated", type: "tv" })
+    viewAllHref=paths.tvCategory("top_rated")
+  />
+  $ const onTheAir = getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "on_the_air",
   });
-  <await(onTheAirPromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|onTheAir|>
-      <media-carousel
-        collection=onTheAir?.results || []
-        title=getListItem({ query: "on_the_air", type: "tv" })
-        viewAllHref=paths.tvCategory("on_the_air")
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
-  $ const airingTodayPromise = getTvShows({
+  <media-carousel
+    collection=onTheAir
+    title=getListItem({ query: "on_the_air", type: "tv" })
+    viewAllHref=paths.tvCategory("on_the_air")
+  />
+  $ const airingToday = getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "airing_today",
   });
-  <await(airingTodayPromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|airingToday|>
-      <media-carousel
-        collection=airingToday?.results || []
-        title=getListItem({ query: "airing_today", type: "tv" })
-        viewAllHref=paths.tvCategory("airing_today")
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
+  <media-carousel
+    collection=airingToday
+    title=getListItem({ query: "airing_today", type: "tv" })
+    viewAllHref=paths.tvCategory("airing_today")
+  />
 
   <page-footer/>
 </div>
-
-

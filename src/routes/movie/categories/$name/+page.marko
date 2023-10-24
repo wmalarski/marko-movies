@@ -11,17 +11,13 @@ $ const movies = (
     ? getTrendingMovie({ context: $global.tmdb, page: 1 })
     : getMovies({ context: $global.tmdb, page: 1, query: name })
 );
-
 class {
-  scroll(event) {
+  scroll() {
     console.log("SCROLL_PAGE");
   }
 }
 
-<div
-  class="flex max-h-screen flex-col overflow-y-scroll"
-  on-scroll("scroll")
->
+<div class="flex max-h-screen flex-col overflow-y-scroll" on-scroll("scroll")>
   <h1 class="px-8 pt-4 text-4xl">
     ${getListItem({ query: parseResult.name, type: "movie" })}
   </h1>
