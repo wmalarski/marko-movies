@@ -12,18 +12,21 @@ $ const movies = (
     : getMovies({ context: $global.tmdb, page: 1, query: name })
 );
 
+class {
+  scroll(event) {
+    console.log("SCROLL_PAGE");
+  }
+}
+
 <div
   class="flex max-h-screen flex-col overflow-y-scroll"
-  on-scroll((event) => console.log("SCROLL2", event))
+  on-scroll("scroll")
 >
   <h1 class="px-8 pt-4 text-4xl">
     ${getListItem({ query: parseResult.name, type: "movie" })}
   </h1>
-  <button on-click((event) => console.log("EVENT", event))>
-    AAA
-  </button>
 
-  <div on-scroll((event) => console.log("SCROLL", event))>
+  <div on-scroll("scroll")>
 
     <await(movies) client-reorder>
       <@placeholder>
@@ -38,7 +41,7 @@ $ const movies = (
         <media-grid
           collection=movies.results || []
           hasMore=false
-          onLoadMore=(
+          onLoadMore(
             () => {
               console.log("onLoadMore");
             }

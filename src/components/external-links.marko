@@ -2,10 +2,10 @@ export interface Input {
   links: Record<string, string | undefined>;
   isPerson?: boolean;
 }
-$ const { links, isPerson } = input;
+<const/{ links, isPerson }=input/>
 
 <ul class="flex flex-row gap-4 opacity-80">
-  <if(links.twitter_id)>
+  <if=links.twitter_id>
     <li>
       <a
         aria-label="Twitter account"
@@ -13,12 +13,16 @@ $ const { links, isPerson } = input;
         rel="noopener"
         target="_blank"
       >
-       <img class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" src="../media/twitter.svg" alt="Twitter"/>
+        <img
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+          src="../media/twitter.svg"
+          alt="Twitter"
+        >
       </a>
     </li>
   </if>
 
-  <if(links.facebook_id)>
+  <if=links.facebook_id>
     <li>
       <a
         aria-label="Facebook account"
@@ -26,12 +30,16 @@ $ const { links, isPerson } = input;
         rel="noopener"
         target="_blank"
       >
-      <img class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" src="../media/facebook.svg" alt="Facebook"/>
+        <img
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+          src="../media/facebook.svg"
+          alt="Facebook"
+        >
       </a>
     </li>
   </if>
 
-  <if(links.instagram_id)>
+  <if=links.instagram_id>
     <li>
       <a
         aria-label="Instagram account"
@@ -39,12 +47,16 @@ $ const { links, isPerson } = input;
         rel="noopener"
         target="_blank"
       >
-      <img class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" src="../media/instagram.svg" alt="Instagram"/>
+        <img
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+          src="../media/instagram.svg"
+          alt="Instagram"
+        >
       </a>
     </li>
   </if>
 
-  <if(links.imdb_id)>
+  <if=links.imdb_id>
     <li>
       <a
         aria-label="IMDb account"
@@ -54,12 +66,16 @@ $ const { links, isPerson } = input;
         rel="noopener"
         target="_blank"
       >
-      <img class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" src="../media/imdb.svg" alt="Imdb"/>
+        <img
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+          src="../media/imdb.svg"
+          alt="Imdb"
+        >
       </a>
     </li>
   </if>
 
-  <if(links.homepage)>
+  <if=links.homepage>
     <li>
       <a
         aria-label="Homepage"
@@ -67,7 +83,11 @@ $ const { links, isPerson } = input;
         rel="noopener"
         target="_blank"
       >
-      <img class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" src="../media/link.svg" alt="Homepage"/>
+        <img
+          class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+          src="../media/link.svg"
+          alt="Homepage"
+        >
       </a>
     </li>
   </if>

@@ -1,4 +1,4 @@
-import { MediaBase } from "../services/types";
+import type { MediaBase } from "../services/types";
 export interface Input {
   collection: MediaBase[];
   hasMore: boolean;
@@ -73,17 +73,24 @@ export interface Input {
     throttleTimer.value = false;
   }, 1000);
 }} -->
-$ const onScroll = (event: Event) => {
-  console.log("Scroll", event);
-  const element = event.target as HTMLDivElement;
-  console.log("Scroll", element);
-};
 
-<section on-scroll(onScroll) on-resize(onScroll)>
+<effect() {
+  console.log("SETUP");
+  const onScroll = (event: Event) => {
+    console.log("Scroll!!!", event);
+  };
+  window.addEventListener("scroll", onScroll);
+  return () => {
+    console.log("CLEANUP");
+    window.removeEventListener("scroll", onScroll);
+  };
+}/>
+
+<section onScroll() { console.log("SCROLL_SECTION"); }>
   <div
     class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8"
-    on-scroll(onScroll)
-    on-resize(onScroll)
+    onScroll() { console.log("SCROLL_DIV"); }
+    onClick() { console.log("CLICK_DIV"); }
   >
     <for|media| of=input.collection>
       <media-card media=media/>
