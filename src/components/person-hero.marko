@@ -1,15 +1,15 @@
 import { getProfile, getProfileSet } from "../services/images";
-import { PersonDetails } from "../services/types";
+import type { PersonDetails } from "../services/types";
 import { formatDate, calculateAge } from "../utils/format";
 export interface Input {
   person: PersonDetails;
 }
-$ const { person } = input;
+<const/{ person }=input/>
 
 <section class="flex justify-center p-6">
   <div class="flex max-w-5xl flex-row items-center gap-8">
     <div class="hidden flex-grow md:flex">
-      <if(person.profile_path)>
+      <if=person.profile_path>
         <div class="min-w-max">
           <picture>
             <img
@@ -27,7 +27,7 @@ $ const { person } = input;
         <h2 class="mb-4 text-3xl">
           ${person.name}
         </h2>
-        <if(person.biography)>
+        <if=person.biography>
           <div class="opacity-80">
             <for|section| of=(
               person.biography.split("\n").filter((section) => section !== "")
@@ -40,34 +40,33 @@ $ const { person } = input;
         </if>
       </div>
       <div class="grid grid-cols-[max-content_1fr] items-center gap-3 text-sm opacity-80 lg:grid-cols-[max-content_1fr_max-content_1fr]">
-        <if(person.known_for_department)>
+        <if=person.known_for_department>
           <div>Known For</div>
           <div>${person.known_for_department}</div>
         </if>
-        <if(person.birthday)>
+        <if=person.birthday>
           <div>Born</div>
           <div>
             ${formatDate(person.birthday)}${" "}
-            <if(!person.deathday)>
+            <if=!person.deathday>
               <span>(age ${calculateAge(person.birthday)})</span>
             </if>
           </div>
         </if>
 
-        <if(person.place_of_birth)>
+        <if=person.place_of_birth>
           <div>Place of Birth</div>
           <div>${person.place_of_birth}</div>
         </if>
 
-        <if(person.deathday)>
+        <if=person.deathday>
           <div>Died</div>
           <div>
             ${formatDate(person.deathday)}${" "}
-            <if(person.birthday)>
+            <if=person.birthday>
               <span>
                 age${" "}${calculateAge(person.birthday, person.deathday)}
               </span>
-
             </if>
           </div>
         </if>

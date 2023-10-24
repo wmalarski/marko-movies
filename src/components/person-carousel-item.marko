@@ -1,10 +1,10 @@
-import { Cast, Crew } from "../services/types";
+import type { Cast, Crew } from "../services/types";
 import { paths } from "../utils/paths";
 import { getProfile, getProfileSet } from "../services/images";
 export interface Input {
   media: Cast | Crew;
 }
-$ const { media } = input;
+<const/{ media }=input/>
 
 <a href=paths.person(media.id) class="w-48">
   <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
