@@ -1,79 +1,52 @@
-import { getMovie } from "../../../services/tmdb";
 import { paths } from "../../../utils/paths";
-import { number, minValue, integer, parse, coerce, object } from "valibot";
 import { twCx } from "../../../utils/twCx";
 export interface Input {
   renderBody: Marko.Body;
 }
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const paramsSchema = object({
-    movieId: coerce(number([minValue(0), integer()]), Number),
-  });
-  $ const params = parse(paramsSchema, $global.params);
-  $ const moviePromise = getMovie({
-    context: $global.tmdb,
-    id: params.movieId,
-  });
+  <if($global.movie)>
+    <await($global.movie)>
+      <@then|movie|>
+        <movie-hero media=movie/>
+      </@then>
+    </await>
+  </if>
 
-  <await(moviePromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|movie|>
-
-      <movie-hero media=movie/>
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
+  <macro|{
+    href,
+    content,
+  }: {
+    href: string;
+    content: string;
+  }| name="styled-link">
+    <a
+      href=href
+      class=twCx(
+        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
+        {
+          "border-b-2 border-b-white opacity-100":
+            href === $global.url.pathname,
+        }
+      )
+    >
+      ${content}
+    </a>
+  </macro>
 
   <div class="flex flex-row items-center justify-center gap-4">
-    $ const overviewHref = paths.media("movie", params.movieId);
-    <a
-      href=overviewHref
-      class=twCx(
-        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-        {
-          "border-b-2 border-b-white opacity-100":
-            overviewHref === $global.url.pathname,
-        }
-      )
-    >
-      Overview
-    </a>
-    $ const videoHref = paths.movieVideo(params.movieId);
-    <a
-      href=videoHref
-      class=twCx(
-        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-        {
-          "border-b-2 border-b-white opacity-100":
-            videoHref === $global.url.pathname,
-        }
-      )
-    >
-      Videos
-    </a>
-    $ const photosHref = paths.moviePhotos(params.movieId);
-    <a
-      href=photosHref
-      class=twCx(
-        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-        {
-          "border-b-2 border-b-white opacity-100":
-            photosHref === $global.url.pathname,
-        }
-      )
-    >
-      Photos
-    </a>
+    <styled-link
+      href=paths.media("movie", +$global.params.movieId)
+      content="Overview"
+    />
+    <styled-link
+      href=paths.movieVideo(+$global.params.movieId)
+      content="Videos"
+    />
+    <styled-link
+      href=paths.moviePhotos(+$global.params.movieId)
+      content="Photos"
+    />
   </div>
   <${input.renderBody}/>
   <page-footer/>

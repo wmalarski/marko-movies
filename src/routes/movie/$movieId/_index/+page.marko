@@ -1,28 +1,13 @@
 import { getMovie } from "../../../../services/tmdb";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
-$ const params = parse(
-  object({ movieId: coerce(number([minValue(0), integer()]), Number) }),
-  $global.params
-);
-$ const moviePromise = getMovie({ context: $global.tmdb, id: params.movieId });
 
-<await(moviePromise) client-reorder>
-  <@placeholder>
-    <label>
-      Loading…
-      <progress/>
-    </label>
-  </@placeholder>
-
-  <@then|movie|>
-    <div class="flex flex-col">
-      <media-info-card media=movie/>
-      <person-carousel collection=(movie.credits?.cast || []) title="Cast"/>
-    </div>
-  </@then>
-
-  <@catch|err|>
-    <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-  </@catch>
-</await>
-
+<if($global.movie)>
+  <await($global.movie)>
+    <@then|movie|>
+      <div class="flex flex-col">
+        <media-info-card media=movie/>
+        <person-carousel collection=(movie.credits?.cast || []) title="Cast"/>
+      </div>
+    </@then>
+  </await>
+</if>

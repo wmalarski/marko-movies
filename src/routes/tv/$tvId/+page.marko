@@ -4,26 +4,15 @@ $ const params = parse(
   object({ tvId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
 );
-$ const tvShowPromise = getTvShow({ context: $global.tmdb, id: params.tvId });
+$ const tvShow = getTvShow({ context: $global.tmdb, id: params.tvId });
 
 <div class="flex max-h-screen flex-col overflow-y-scroll">
-  <await(tvShowPromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
+  <await(tvShow)>
     <@then|tvShow|>
       <tv-hero media=tvShow/>
       <media-info-card media=tvShow/>
       <person-carousel collection=(tvShow?.credits?.cast || []) title="Cast"/>
     </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
   </await>
 
   <page-footer/>

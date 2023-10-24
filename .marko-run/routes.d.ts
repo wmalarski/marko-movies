@@ -180,6 +180,29 @@ declare module "../src/routes/+middleware" {
   }
 }
 
+declare module "../src/routes/movie/$movieId/+middleware" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes[
+      | "/movie/:movieId"
+      | "/movie/:movieId/photos"
+      | "/movie/:movieId/videos"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
 declare module "../src/routes/_index/+page.marko" {
   namespace MarkoRun {
     export {
