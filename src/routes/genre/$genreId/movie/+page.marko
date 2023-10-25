@@ -1,5 +1,6 @@
 import { getMediaByGenre } from "../../../../services/tmdb";
 import { object, number, coerce, integer, minValue, parse } from "valibot";
+import loader from "./loader.marko";
 $ const parseResult = parse(
   object({ genreId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
@@ -14,10 +15,10 @@ $ const movies = getMediaByGenre({
 <await(movies)>
   <@then|movies|>
 
-    <infinite-media-grid
-      collection=movies
+    <loader
+      genreId=parseResult.genreId
+      initialCollection=movies
       name=`Movie Genre: ${movies?.genre?.name || "Not defined"}`
-      loadMore() { return Promise.reject(); }
     />
   </@then>
 </await>

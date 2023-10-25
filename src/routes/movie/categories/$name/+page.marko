@@ -1,6 +1,7 @@
 import { getMovies, getTrendingMovie } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
 import { object, string, minLength, parse } from "valibot";
+import loader from "./loader.marko";
 $ const parseResult = parse(
   object({ name: string([minLength(1)]) }),
   $global.params
@@ -14,10 +15,10 @@ $ const movies = (
 
 <await(movies)>
   <@then|movies|>
-    <infinite-media-grid
-      collection=movies
+    <loader
+      initialCollection=movies
       name=getListItem({ query: parseResult.name, type: "movie" })
-      loadMore() { return Promise.reject(); }
+      categoryName=name
     />
   </@then>
 </await>

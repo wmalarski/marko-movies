@@ -1,9 +1,10 @@
 import { search } from "../../services/tmdb";
-$ const query = $global.url.searchParams.get("query");
+import loader from "./loader.marko";
+$ const query = $global.url.searchParams.get("query") || "";
 $ const result = search({
   context: $global.tmdb,
   page: 1,
-  query: query || "",
+  query,
 });
 
 <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
@@ -23,11 +24,7 @@ $ const result = search({
 
   <await(result)>
     <@then|result|>
-      <infinite-media-grid
-        collection=result
-        name="Search results"
-        loadMore() { return Promise.reject(); }
-      />
+      <loader initialCollection=result name="Search results" query=query/>
     </@then>
   </await>
 </div>
