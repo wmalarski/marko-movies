@@ -1,86 +1,10 @@
 import type { MediaBase } from "../services/types";
 export interface Input {
   collection: MediaBase[];
-  hasMore: boolean;
-  onLoadMore?: VoidFunction;
-  threshold?: number;
 }
-/*
-<script lang="ts">
-	
-	let component: HTMLUListElement | undefined;
-	let isLoadMore: boolean = false;
 
-	const onScroll = (event: Event) => {
-		const element = event.target as HTMLDivElement;
-
-		const offset = horizontal
-			? element.scrollWidth - element.clientWidth - element.scrollLeft
-			: element.scrollHeight - element.clientHeight - element.scrollTop;
-
-		if (offset <= threshold) {
-			if (!isLoadMore && hasMore) {
-				dispatch("loadMore");
-			}
-			isLoadMore = true;
-		} else {
-			isLoadMore = false;
-		}
-	}
-
-	$: {
-		if (component) {
-			component.addEventListener("scroll", onScroll);
-			component.addEventListener("resize", onScroll);
-		}
-	}
-	
-	onDestroy(() => {
-		if (component) {
-			component.removeEventListener("scroll", onScroll);
-			component.removeEventListener("resize", onScroll);
-		}
-	});
-
-</script>
-*/
-<!-- const throttleTimer = useSignal(false); -->
-<!-- const scrollEnabled = useSignal(props.currentPage < props.pageCount); -->
-<!-- const handleScroll$ = $(() => {
-  if (!props.parentContainer) {
-    return;
-  }
-
-  const endOfPage =
-    props.parentContainer.clientHeight + props.parentContainer.scrollTop >=
-    props.parentContainer.scrollHeight - 100;
-
-  if (endOfPage) {
-    props.onMore$?.();
-  }
-
-  if (props.currentPage === props.pageCount) {
-    scrollEnabled.value = false;
-  }
-}); -->
-<!-- document:onScroll$={() => {
-  if (throttleTimer.value || !scrollEnabled.value) {
-    return;
-  }
-  throttleTimer.value = true;
-  setTimeout(() => {
-    handleScroll$();
-    throttleTimer.value = false;
-  }, 1000);
-}} -->
-
-<section>
-  <div
-    class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8"
-    id="sc-grid"
-  >
-    <for|media| of=input.collection>
-      <media-card media=media/>
-    </for>
-  </div>
+<section class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8">
+  <for|media| of=input.collection>
+    <media-card media=media/>
+  </for>
 </section>

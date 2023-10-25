@@ -15,13 +15,10 @@ $ const personPromise = getPerson({
   <@then|person|>
     <div class="max-h-screen overflow-y-scroll flex flex-col">
       <person-hero person=person/>
-      <media-grid
-        collection=[
-          ...(person.combined_credits?.cast || []),
-          ...(person.combined_credits?.crew || []),
-        ]
-        hasMore=false
-      />
+      <media-grid collection=[
+        ...(person.combined_credits?.cast || []),
+        ...(person.combined_credits?.crew || []),
+      ]/>
       <page-footer/>
     </div>
   </@then>
