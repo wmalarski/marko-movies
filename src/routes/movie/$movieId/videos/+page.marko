@@ -1,32 +1,21 @@
-import { getMovie } from "../../../../services/tmdb";
-import { number, coerce, minValue, integer, parse, object } from "valibot";
-
-
-<if($global.movie)>
-  <await($global.movie)>
-      <@then|movie|>
-      <section class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-6 px-16 py-4">
-        <for |video| of=movie.videos?.results>
-          <a
-            class="aspect-video"
-            href=`https://www.youtube.com/watch?v=${video.key}`
-            target="_none"
-          >
-            <img
-              alt=video.name
-              class="h-full max-h-full w-full object-cover text-black"
-              height=600
-              src=`https://movies-proxy.vercel.app/ipx/f_webp,s_400x600/youtube/vi/${video.key}/maxresdefault.jpg`
-              width=400
-            />
-            <div class="mt-2 flex flex-col gap-2">
-              <span>${video.name}</span>
-              <span class="op-60 text-sm">${video.type}</span>
-            </div>
-          </a>
-          </for>
-      </section>
-    </@then>
-  </await>
-</if>
-
+<section class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-6 px-16 py-4">
+  <for |video| of=$global.movie.videos?.results>
+    <a
+      class="aspect-video"
+      href=`https://www.youtube.com/watch?v=${video.key}`
+      target="_none"
+    >
+      <img
+        alt=video.name
+        class="h-full max-h-full w-full object-cover text-black"
+        height=600
+        src=`https://movies-proxy.vercel.app/ipx/f_webp,s_400x600/youtube/vi/${video.key}/maxresdefault.jpg`
+        width=400
+      />
+      <div class="mt-2 flex flex-col gap-2">
+        <span>${video.name}</span>
+        <span class="op-60 text-sm">${video.type}</span>
+      </div>
+    </a>
+  </for>
+</section>

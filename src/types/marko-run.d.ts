@@ -9,7 +9,7 @@ import type {
 declare module "@marko/run" {
   export interface Context {
     tmdb: TMDBContext;
-    movie: Promise<MovieExtraDetails>;
+    movie: MovieExtraDetails;
     collection: Collection<MediaBase>;
     genre: Genre;
   }

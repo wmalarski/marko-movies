@@ -1,13 +1,4 @@
-import { getMovie } from "../../../../services/tmdb";
-import { number, coerce, minValue, integer, parse, object } from "valibot";
-
-<if($global.movie)>
-  <await($global.movie)>
-    <@then|movie|>
-      <div class="flex flex-col">
-        <media-info-card media=movie/>
-        <person-carousel collection=(movie.credits?.cast || []) title="Cast"/>
-      </div>
-    </@then>
-  </await>
-</if>
+<div class="flex flex-col">
+  <media-info-card media=$global.movie/>
+  <person-carousel collection=($global.movie.credits?.cast || []) title="Cast"/>
+</div>

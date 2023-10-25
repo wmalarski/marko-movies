@@ -5,13 +5,7 @@ export interface Input {
 }
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  <if($global.movie)>
-    <await($global.movie)>
-      <@then|movie|>
-        <movie-hero media=movie/>
-      </@then>
-    </await>
-  </if>
+  <movie-hero media=$global.movie/>
 
   <macro|{
     href,

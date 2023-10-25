@@ -1,56 +1,48 @@
 import { getImage, getImageSet } from "../../../../services/images";
-import { getMovie } from "../../../../services/tmdb";
-import { number, coerce, minValue, integer, parse, object } from "valibot";
 
-<if($global.movie)>
-  <await($global.movie)>
-    <@then|movie|>
-      <section class="flex flex-col gap-8 px-16 py-4">
-        <div class="flex items-end gap-4">
-          <h2 class="text-2xl">
-            Backdrops
-          </h2>
-          <span class="text-sm opacity-80">
-            ${movie.images?.backdrops?.length || 0} Images
-          </span>
-        </div>
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-6">
-          <for|backdrop| of=(movie.images?.backdrops)>
-            <img
-              alt=`${movie.title} backdrop`
-              class="h-full max-h-full w-full object-cover text-black"
-              src=getImage(backdrop, "92")
-              srcset=getImageSet(backdrop, "500")
-              style={ "aspect-ratio": backdrop.aspect_ratio }
-              width=backdrop.width
-              height=backdrop.height
-            >
-          </for>
-        </div>
-        <div class="flex items-end gap-4">
-          <h2 class="text-2xl">
-            Posters
-          </h2>
-          <span class="text-sm opacity-80">
-            ${movie.images?.posters?.length || 0} Images
-          </span>
-        </div>
+<section class="flex flex-col gap-8 px-16 py-4">
+  <div class="flex items-end gap-4">
+    <h2 class="text-2xl">
+      Backdrops
+    </h2>
+    <span class="text-sm opacity-80">
+      ${$global.movie.images?.backdrops?.length || 0} Images
+    </span>
+  </div>
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-6">
+    <for|backdrop| of=($global.movie.images?.backdrops)>
+      <img
+        alt=`${$global.movie.title} backdrop`
+        class="h-full max-h-full w-full object-cover text-black"
+        src=getImage(backdrop, "92")
+        srcset=getImageSet(backdrop, "500")
+        style={ "aspect-ratio": backdrop.aspect_ratio }
+        width=backdrop.width
+        height=backdrop.height
+      >
+    </for>
+  </div>
+  <div class="flex items-end gap-4">
+    <h2 class="text-2xl">
+      Posters
+    </h2>
+    <span class="text-sm opacity-80">
+      ${$global.movie.images?.posters?.length || 0} Images
+    </span>
+  </div>
 
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
-          <for|poster| of=(movie.images?.posters)>
-            <img
-              alt=`${movie.title} poster`
-              class="h-full max-h-full w-full object-cover text-black"
-              key=poster.file_path
-              src=getImage(poster, "92")
-              srcset=getImageSet(poster, "342")
-              style={ "aspect-ratio": poster.aspect_ratio }
-              width=poster.width
-              height=poster.height
-            >
-          </for>
-        </div>
-      </section>
-    </@then>
-  </await>
-</if>
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
+    <for|poster| of=($global.movie.images?.posters)>
+      <img
+        alt=`${$global.movie.title} poster`
+        class="h-full max-h-full w-full object-cover text-black"
+        key=poster.file_path
+        src=getImage(poster, "92")
+        srcset=getImageSet(poster, "342")
+        style={ "aspect-ratio": poster.aspect_ratio }
+        width=poster.width
+        height=poster.height
+      >
+    </for>
+  </div>
+</section>

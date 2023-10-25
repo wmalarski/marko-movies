@@ -627,9 +627,18 @@ type Routes = {
     verb: "get";
     meta: typeof import("../src/routes/movie/_index/+meta.json");
   };
-  "/movie/$movieId/_index": { verb: "get" };
-  "/movie/$movieId/photos": { verb: "get" };
-  "/movie/$movieId/videos": { verb: "get" };
+  "/movie/$movieId/_index": {
+    verb: "get";
+    meta: typeof import("../src/routes/movie/$movieId/_index/+meta.json");
+  };
+  "/movie/$movieId/photos": {
+    verb: "get";
+    meta: typeof import("../src/routes/movie/$movieId/photos/+meta.json");
+  };
+  "/movie/$movieId/videos": {
+    verb: "get";
+    meta: typeof import("../src/routes/movie/$movieId/videos/+meta.json");
+  };
   "/movie/categories/$name": {
     verb: "get";
     meta: typeof import("../src/routes/movie/categories/$name/+meta.json");

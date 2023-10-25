@@ -16,6 +16,7 @@ export const GET: MarkoRun.Handler = async (context, next) => {
 
   context.collection = movies;
   context.genre = movies.genre;
+
   context.meta.pageTitle = `${movies.genre.name} - Marko Run Movies`;
 
   context.serializedGlobals.genre = true;
