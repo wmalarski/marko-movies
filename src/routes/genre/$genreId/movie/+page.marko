@@ -4,63 +4,19 @@ $ const parseResult = parse(
   object({ genreId: coerce(number([minValue(0), integer()]), Number) }),
   $global.params
 );
-$ const moviesPromise = getMediaByGenre({
+$ const movies = getMediaByGenre({
   context: $global.tmdb,
   genre: parseResult.genreId,
   media: "movie",
   page: 1,
 });
-<!-- const containerRef = useSignal<Element | null>(null);
 
-const movies = useGenreMovies();
+<await(movies)>
+  <@then|movies|>
 
-const currentPage = useSignal(1);
-const collection = useSignal<MediaBase[]>(movies.value.results); -->
-
-<div class="flex max-h-screen flex-col overflow-y-scroll">
-  <await(moviesPromise) client-reorder>
-    <@placeholder>
-      <label>
-        Loading…
-        <progress/>
-      </label>
-    </@placeholder>
-
-    <@then|movies|>
-      <h1 class="px-8 pt-4 text-4xl">
-        Movie Genre: ${movies?.genre?.name || "Not defined"}
-      </h1>
-      <media-grid
-        collection=movies.results
-        hasMore=false
-        onLoadMore(
-          () => {
-            //
-          }
-        )
-      />
-    </@then>
-
-    <@catch|err|>
-      <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-    </@catch>
-  </await>
-</div>
-<!-- onMore$={async () => {
-  const data = await getMore(currentPage.value + 1);
-  const newMedia = data.results || [];
-  collection.value = [...collection.value, ...newMedia];
-  currentPage.value += 1;
-}} -->
-// export const head: DocumentHead = (event) => {
-
-//   const data = event.resolveValue(useGenreMovies);
-
-//   return data.genre
-
-//     ? { title: `${data.genre.name} Tv Shows - Qwik City Movies` }
-
-//     : {};
-
-// };
-
+    <infinite-media-grid
+      collection=movies.results
+      name=`Movie Genre: ${movies?.genre?.name || "Not defined"}`
+    />
+  </@then>
+</await>

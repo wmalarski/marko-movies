@@ -11,51 +11,12 @@ $ const movies = (
     ? getTrendingMovie({ context: $global.tmdb, page: 1 })
     : getMovies({ context: $global.tmdb, page: 1, query: name })
 );
-class {
-  scroll() {
-    console.log("SCROLL_PAGE");
-  }
-}
 
-<div class="flex max-h-screen flex-col overflow-y-scroll" on-scroll("scroll")>
-  <h1 class="px-8 pt-4 text-4xl">
-    ${getListItem({ query: parseResult.name, type: "movie" })}
-  </h1>
-
-  <div on-scroll("scroll")>
-
-    <await(movies) client-reorder>
-      <@placeholder>
-        <label>
-          Loading…
-          <progress/>
-        </label>
-      </@placeholder>
-
-      <@then|movies|>
-
-        <media-grid
-          collection=movies.results || []
-          hasMore=false
-          onLoadMore(
-            () => {
-              console.log("onLoadMore");
-            }
-          )
-        />
-      </@then>
-
-      <@catch|err|>
-        <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-      </@catch>
-    </await>
-  </div>
-</div>
-<!-- onMore$=(
-async () => {
-const data = await getMore(currentPage.value + 1);
-const newMedia = data.results || [];
-collection.value = [...collection.value, ...newMedia];
-currentPage.value += 1;
-}
-) -->
+<await(movies)>
+  <@then|movies|>
+    <infinite-media-grid
+      collection=movies.results || []
+      name=getListItem({ query: parseResult.name, type: "movie" })
+    />
+  </@then>
+</await>

@@ -6,16 +6,12 @@ $ const params = parse(
   }),
   $global.params
 );
-$ const personPromise = getPerson({ context: $global.tmdb, id: params.personId });
+$ const personPromise = getPerson({
+  context: $global.tmdb,
+  id: params.personId,
+});
 
-<await(personPromise) client-reorder>
-  <@placeholder>
-    <label>
-      Loading…
-      <progress/>
-    </label>
-  </@placeholder>
-
+<await(personPromise)>
   <@then|person|>
     <div class="max-h-screen overflow-y-scroll flex flex-col">
       <person-hero person=person/>
@@ -25,16 +21,8 @@ $ const personPromise = getPerson({ context: $global.tmdb, id: params.personId }
           ...(person.combined_credits?.crew || []),
         ]
         hasMore=false
-        onLoadMore(() => {
-          //
-        })
       />
       <page-footer/>
     </div>
   </@then>
-
-  <@catch|err|>
-    <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-  </@catch>
 </await>
-

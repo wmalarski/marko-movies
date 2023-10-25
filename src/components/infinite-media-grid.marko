@@ -1,0 +1,112 @@
+import type { MediaBase } from "../services/types";
+export interface Input {
+  name: string;
+  collection: MediaBase[];
+}
+
+<div class="flex max-h-screen flex-col overflow-y-scroll">
+  <h1 class="px-8 pt-4 text-4xl">
+    ${input.name}
+  </h1>
+
+  <media-grid
+    collection=input.collection
+    hasMore=false
+    onLoadMore(
+      () => {
+        console.log("onLoadMore");
+      }
+    )
+  />
+</div>
+// const location = useLocation();
+
+// const containerRef = useSignal<Element | null>(null);
+
+// const tvShowCategory = useTvShowCategoryLoader();
+
+// const currentPage = useSignal(1);
+
+// const collection = useSignal<MediaBase[]>(tvShowCategory.value.results || []);
+
+<!-- onMore$=(
+async () => {
+const data = await getMore(currentPage.value + 1);
+const newMedia = data.results || [];
+collection.value = [...collection.value, ...newMedia];
+currentPage.value += 1;
+}
+) -->
+<!-- onMore$={async () => {
+            const data = await getMore(currentPage.value + 1);
+            const newMedia = data.results || [];
+            collection.value = [...collection.value, ...newMedia];
+            currentPage.value += 1;
+          }}
+export const head: DocumentHead = {
+  title: "Qwik City Movies",
+}; -->
+<!-- parentContainer=containerRef.value}
+          onMore$={async () => {
+            const data = await getMore(currentPage.value + 1);
+            const newMedia = data.results || [];
+            collection.value = [...collection.value, ...newMedia];
+            currentPage.value += 1;
+          }}
+
+
+export const head: DocumentHead = {
+  title: "Search - Qwik City Movies",
+}; -->
+<!-- const containerRef = useSignal<Element | null>(null);
+
+const resource = useSearchLoader();
+
+const currentPage = useSignal(1);
+const collection = useSignal<MediaBase[]>(resource.value?.results || []); -->
+<!-- const containerRef = useSignal<Element | null>(null);
+const movies = useGenreMovies();
+const currentPage = useSignal(1);
+const collection = useSignal<MediaBase[]>(movies.value.results); -->
+<!-- onMore$={async () => {
+  const data = await getMore(currentPage.value + 1);
+  const newMedia = data.results || [];
+  collection.value = [...collection.value, ...newMedia];
+  currentPage.value += 1;
+}} -->
+// export const head: DocumentHead = (event) => {
+
+//   const data = event.resolveValue(useGenreMovies);
+
+//   return data.genre
+
+//     ? { title: `${data.genre.name} Tv Shows - Qwik City Movies` }
+
+//     : {};
+
+// };
+
+<!-- const containerRef = useSignal<Element | null>(null);
+
+const tvShows = useGenreTvShowsLoader();
+
+const currentPage = useSignal(1);
+const collection = useSignal<MediaBase[]>(tvShows.value.results); -->
+<!-- onMore$={async () => {
+  const data = await getMore(currentPage.value + 1);
+  const newMedia = data.results || [];
+  collection.value = [...collection.value, ...newMedia];
+  currentPage.value += 1;
+}} -->
+// export const head: DocumentHead = (event) => {
+
+//   const data = event.resolveValue(useGenreTvShowsLoader);
+
+//   return data.genre
+
+//     ? { title: `${data.genre.name} Tv Shows - Qwik City Movies` }
+
+//     : {};
+
+// };
+
