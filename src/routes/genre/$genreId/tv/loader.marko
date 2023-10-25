@@ -1,0 +1,21 @@
+import type { MediaBase, Collection } from "../../../../services/types";
+export interface Input {
+  name: string;
+  initialCollection: Collection<MediaBase>;
+  genreId: number;
+}
+
+<const/loadMore=(
+  async (page: number) => {
+    const params = new URLSearchParams({ page: String(page) });
+    const response = await fetch(`/genre/${input.genreId}/tv/data?${params}`);
+    const json = await response.json();
+    return json;
+  }
+)/>
+
+<infinite-media-grid
+  collection=input.initialCollection
+  name=input.name
+  loadMore=loadMore
+/>

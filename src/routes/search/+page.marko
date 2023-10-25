@@ -23,7 +23,11 @@ $ const result = search({
 
   <await(result)>
     <@then|result|>
-      <infinite-media-grid collection=result name="Search results"/>
+      <infinite-media-grid
+        collection=result
+        name="Search results"
+        loadMore() { return Promise.reject(); }
+      />
     </@then>
   </await>
 </div>

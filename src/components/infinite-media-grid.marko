@@ -3,24 +3,27 @@ export interface Input {
   name: string;
   collection: Collection<MediaBase>;
   threshold?: number;
+  loadMore: (page: number) => Promise<Collection<MediaBase>>;
 }
 
-<let/hasMore=(input.collection.page < input.collection.total_pages)/>
+<let/results=(input.collection.results)/>
+<let/currentPage=(input.collection.page)/>
+<let/hasMore=(currentPage < input.collection.total_pages)/>
 <let/isLoadMore=false/>
 <const/threshold=input.threshold || 0/>
 
 <const/onScroll=(
-  (event: Event) => {
+  async (event: Event) => {
     const element = event.target as HTMLDivElement;
 
     const offset =
       element.scrollHeight - element.clientHeight - element.scrollTop;
 
-    console.log("ON_SCROLL", { element, offset });
-
     if (offset <= threshold) {
       if (!isLoadMore && hasMore) {
-        console.log("LOAD more");
+        const response = await input.loadMore(currentPage + 1);
+        results = [...results, ...response.results];
+        currentPage = response.page;
       }
       isLoadMore = true;
     } else {
@@ -43,12 +46,7 @@ export interface Input {
   <h1 class="px-8 pt-4 text-4xl">
     ${input.name}
   </h1>
-
-  <media-grid
-    collection=(input.collection.results)
-    hasMore=false
-    onLoadMore=onLoadMore
-  />
+  <media-grid collection=results hasMore=false onLoadMore=onLoadMore/>
 </div>
 // const location = useLocation();
 

@@ -17,6 +17,7 @@ $ const tvShows = (
     <infinite-media-grid
       collection=tvShows
       name=getListItem({ query: name, type: "tv" })
+      loadMore() { return Promise.reject(); }
     />
   </@then>
 </await>

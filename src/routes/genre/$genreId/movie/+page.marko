@@ -17,6 +17,7 @@ $ const movies = getMediaByGenre({
     <infinite-media-grid
       collection=movies
       name=`Movie Genre: ${movies?.genre?.name || "Not defined"}`
+      loadMore() { return Promise.reject(); }
     />
   </@then>
 </await>
