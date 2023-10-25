@@ -23,10 +23,7 @@ $ const result = search({
 
   <await(result)>
     <@then|result|>
-      <infinite-media-grid
-        collection=result.results || []
-        name="Search results"
-      />
+      <infinite-media-grid collection=result name="Search results"/>
     </@then>
   </await>
 </div>

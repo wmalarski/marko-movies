@@ -15,7 +15,7 @@ $ const tvShows = (
 <await(tvShows)>
   <@then|tvShows|>
     <infinite-media-grid
-      collection=tvShows.results || []
+      collection=tvShows
       name=getListItem({ query: name, type: "tv" })
     />
   </@then>

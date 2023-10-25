@@ -15,7 +15,7 @@ $ const movies = (
 <await(movies)>
   <@then|movies|>
     <infinite-media-grid
-      collection=movies.results || []
+      collection=movies
       name=getListItem({ query: parseResult.name, type: "movie" })
     />
   </@then>

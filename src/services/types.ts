@@ -3,10 +3,10 @@
 export type MediaType = "movie" | "tv" | "person";
 
 export type Collection<T> = {
-  page?: number;
-  results?: T[];
-  total_pages?: number;
-  total_results?: number;
+  page: number;
+  results: T[];
+  total_pages: number;
+  total_results: number;
 };
 
 export type Genre = {

@@ -74,23 +74,10 @@ export interface Input {
   }, 1000);
 }} -->
 
-<effect() {
-  console.log("SETUP");
-  const onScroll = (event: Event) => {
-    console.log("Scroll!!!", event);
-  };
-  window.addEventListener("scroll", onScroll);
-  return () => {
-    console.log("CLEANUP");
-    window.removeEventListener("scroll", onScroll);
-  };
-}/>
-
-<section onScroll() { console.log("SCROLL_SECTION"); }>
+<section>
   <div
     class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8"
-    onScroll() { console.log("SCROLL_DIV"); }
-    onClick() { console.log("CLICK_DIV"); }
+    id="sc-grid"
   >
     <for|media| of=input.collection>
       <media-card media=media/>

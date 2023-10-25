@@ -1,6 +1,5 @@
 import navbar from "../components/navbar.marko";
 import "./index.css";
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,9 +9,12 @@ import "./index.css";
     <meta name="description" content="A basic Marko app.">
     <title>${$global.meta.pageTitle || "Marko"}</title>
   </head>
-  <body class="bg-black text-neutral-200 flex h-screen w-screen flex-col-reverse md:flex-row">
+  <body
+    class="bg-black text-neutral-200 flex h-screen w-screen flex-col-reverse md:flex-row"
+    id="sc-body"
+  >
     <navbar/>
-    <main class="w-full max-w-full overflow-x-hidden" on-scroll("scroll")>
+    <main class="w-full max-w-full overflow-x-hidden" id="sc-main">
       <${input.renderBody}/>
     </main>
   </body>

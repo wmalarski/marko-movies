@@ -1,22 +1,53 @@
-import type { MediaBase } from "../services/types";
+import type { MediaBase, Collection } from "../services/types";
 export interface Input {
   name: string;
-  collection: MediaBase[];
+  collection: Collection<MediaBase>;
+  threshold?: number;
 }
 
-<div class="flex max-h-screen flex-col overflow-y-scroll">
+<let/hasMore=(input.collection.page < input.collection.total_pages)/>
+<let/isLoadMore=false/>
+<const/threshold=input.threshold || 0/>
+
+<const/onScroll=(
+  (event: Event) => {
+    const element = event.target as HTMLDivElement;
+
+    const offset =
+      element.scrollHeight - element.clientHeight - element.scrollTop;
+
+    console.log("ON_SCROLL", { element, offset });
+
+    if (offset <= threshold) {
+      if (!isLoadMore && hasMore) {
+        console.log("LOAD more");
+      }
+      isLoadMore = true;
+    } else {
+      isLoadMore = false;
+    }
+  }
+)/>
+
+<const/onLoadMore=(
+  () => {
+    console.log("ON_SCROLL");
+  }
+)/>
+
+<div
+  class="flex max-h-screen flex-col overflow-y-scroll"
+  onScroll=onScroll
+  id="sc-infinite"
+>
   <h1 class="px-8 pt-4 text-4xl">
     ${input.name}
   </h1>
 
   <media-grid
-    collection=input.collection
+    collection=(input.collection.results)
     hasMore=false
-    onLoadMore(
-      () => {
-        console.log("onLoadMore");
-      }
-    )
+    onLoadMore=onLoadMore
   />
 </div>
 // const location = useLocation();

@@ -15,7 +15,7 @@ $ const tvShows = getMediaByGenre({
   <@then|tvShows|>
 
     <infinite-media-grid
-      collection=tvShows.results
+      collection=tvShows
       name=`Tv Show Genre: ${tvShows?.genre?.name || "Not defined"}`
     />
   </@then>
