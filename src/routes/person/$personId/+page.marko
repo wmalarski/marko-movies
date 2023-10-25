@@ -1,8 +1,8 @@
 <div class="max-h-screen overflow-y-scroll flex flex-col">
   <person-hero person=$global.person/>
   <media-grid collection=[
-    ...(person.combined_credits?.cast || []),
-    ...(person.combined_credits?.crew || []),
+    ...($global.person.combined_credits?.cast || []),
+    ...($global.person.combined_credits?.crew || []),
   ]/>
   <page-footer/>
 </div>
