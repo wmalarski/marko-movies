@@ -1,25 +1,8 @@
-import { getPerson } from "../../../services/tmdb";
-import { number, coerce, minValue, integer, parse, object } from "valibot";
-$ const params = parse(
-  object({
-    personId: coerce(number([minValue(0), integer()]), Number),
-  }),
-  $global.params
-);
-$ const personPromise = getPerson({
-  context: $global.tmdb,
-  id: params.personId,
-});
-
-<await(personPromise)>
-  <@then|person|>
-    <div class="max-h-screen overflow-y-scroll flex flex-col">
-      <person-hero person=person/>
-      <media-grid collection=[
-        ...(person.combined_credits?.cast || []),
-        ...(person.combined_credits?.crew || []),
-      ]/>
-      <page-footer/>
-    </div>
-  </@then>
-</await>
+<div class="max-h-screen overflow-y-scroll flex flex-col">
+  <person-hero person=$global.person/>
+  <media-grid collection=[
+    ...(person.combined_credits?.cast || []),
+    ...(person.combined_credits?.crew || []),
+  ]/>
+  <page-footer/>
+</div>

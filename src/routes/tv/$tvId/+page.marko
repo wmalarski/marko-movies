@@ -1,20 +1,10 @@
 import { getTvShow } from "../../../services/tmdb";
 import { number, coerce, minValue, integer, parse, object } from "valibot";
-$ const params = parse(
-  object({ tvId: coerce(number([minValue(0), integer()]), Number) }),
-  $global.params
-);
-$ const tvShow = getTvShow({ context: $global.tmdb, id: params.tvId });
 
 <div class="flex max-h-screen flex-col overflow-y-scroll">
-  <await(tvShow)>
-    <@then|tvShow|>
-      <tv-hero media=tvShow/>
-      <media-info-card media=tvShow/>
-      <person-carousel collection=(tvShow?.credits?.cast || []) title="Cast"/>
-    </@then>
-  </await>
-
+  <tv-hero media=$global.tvShow/>
+  <media-info-card media=$global.tvShow/>
+  <person-carousel collection=($global.tvShow?.credits?.cast || []) title="Cast"/>
   <page-footer/>
 </div>
 

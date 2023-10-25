@@ -165,6 +165,26 @@ declare module "../src/routes/movie/categories/$name/data/+handler" {
   }
 }
 
+declare module "../src/routes/person/$personId/+handler" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes["/person/:personId"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
 declare module "../src/routes/search/data/+handler" {
   namespace MarkoRun {
     export {
@@ -179,6 +199,26 @@ declare module "../src/routes/search/data/+handler" {
       Platform,
     };
     export type Route = Run.Routes["/search/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/tv/$tvId/+handler" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes["/tv/:tvId"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
     export const route: Run.HandlerTypeFn<Route>;
@@ -644,7 +684,10 @@ type Routes = {
     meta: typeof import("../src/routes/movie/categories/$name/+meta.json");
   };
   "/movie/categories/$name/data": { verb: "get" };
-  "/person/$personId": { verb: "get" };
+  "/person/$personId": {
+    verb: "get";
+    meta: typeof import("../src/routes/person/$personId/+meta.json");
+  };
   "/search": {
     verb: "get";
     meta: typeof import("../src/routes/search/+meta.json");
@@ -654,7 +697,10 @@ type Routes = {
     verb: "get";
     meta: typeof import("../src/routes/tv/_index/+meta.json");
   };
-  "/tv/$tvId": { verb: "get" };
+  "/tv/$tvId": {
+    verb: "get";
+    meta: typeof import("../src/routes/tv/$tvId/+meta.json");
+  };
   "/tv/categories/$name": {
     verb: "get";
     meta: typeof import("../src/routes/tv/categories/$name/+meta.json");

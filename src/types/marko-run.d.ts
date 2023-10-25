@@ -4,14 +4,18 @@ import type {
   Genre,
   MediaBase,
   MovieExtraDetails,
+  PersonDetails,
+  TvExtraDetails,
 } from "../services/types";
 
 declare module "@marko/run" {
   export interface Context {
-    tmdb: TMDBContext;
-    movie: MovieExtraDetails;
     collection: Collection<MediaBase>;
     genre: Genre;
+    movie: MovieExtraDetails;
+    tvShow: TvExtraDetails;
+    person: PersonDetails;
+    tmdb: TMDBContext;
   }
 }
 
