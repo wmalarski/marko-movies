@@ -1,7 +1,17 @@
+import type { TMDBContext } from "../services/tmdb";
+import type {
+  Collection,
+  Genre,
+  MediaBase,
+  MovieExtraDetails,
+} from "../services/types";
+
 declare module "@marko/run" {
   export interface Context {
-    tmdb: import("../services/tmdb").TMDBContext;
-    movie?: Promise<import("../services/types").MovieExtraDetails>;
+    tmdb: TMDBContext;
+    movie: Promise<MovieExtraDetails>;
+    collection: Collection<MediaBase>;
+    genre: Genre;
   }
 }
 

@@ -220,6 +220,10 @@ export const getMediaByGenre = async ({
 
   const found = first.genres?.find((entry) => entry.id === genre);
 
+  if (!found) {
+    throw new Error("genre not found");
+  }
+
   return { ...result, genre: found, results };
 };
 

@@ -1,23 +1,14 @@
-import { getMediaByGenre } from "../../../../services/tmdb";
-import { object, number, coerce, integer, minValue, parse } from "valibot";
-import loader from "./loader.marko";
-$ const parseResult = parse(
-  object({ genreId: coerce(number([minValue(0), integer()]), Number) }),
-  $global.params
-);
-$ const tvShows = getMediaByGenre({
-  context: $global.tmdb,
-  genre: parseResult.genreId,
-  media: "tv",
-  page: 1,
-});
+<const/loadMore=(
+  async (page: number) => {
+    const params = new URLSearchParams({ page: String(page) });
+    const url = `/genre/${$global.params.genreId}/tv/data?${params}`;
+    const response = await fetch(url);
+    return response.json();
+  }
+)/>
 
-<await(tvShows)>
-  <@then|tvShows|>
-    <loader 
-      genreId=parseResult.genreId 
-      initialCollection=tvShows 
-      name=`Tv Show Genre: ${tvShows?.genre?.name || "Not defined"}`
-    />
-  </@then>
-</await>
+<infinite-media-grid
+  collection=$global.collection
+  name=`Tv Genre: ${$global.genre.name}`
+  loadMore=loadMore
+/>

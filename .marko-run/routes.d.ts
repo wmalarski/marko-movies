@@ -45,6 +45,26 @@ declare module "@marko/run" {
     }> {}
 }
 
+declare module "../src/routes/genre/$genreId/movie/+handler" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes["/genre/:genreId/movie"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
 declare module "../src/routes/genre/$genreId/movie/data/+handler" {
   namespace MarkoRun {
     export {
@@ -59,6 +79,26 @@ declare module "../src/routes/genre/$genreId/movie/data/+handler" {
       Platform,
     };
     export type Route = Run.Routes["/genre/:genreId/movie/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/genre/$genreId/tv/+handler" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes["/genre/:genreId/tv"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
     export const route: Run.HandlerTypeFn<Route>;
@@ -573,9 +613,15 @@ type Routes = {
     verb: "get";
     meta: typeof import("../src/routes/_index/+meta.json");
   };
-  "/genre/$genreId/movie": { verb: "get" };
+  "/genre/$genreId/movie": {
+    verb: "get";
+    meta: typeof import("../src/routes/genre/$genreId/movie/+meta.json");
+  };
   "/genre/$genreId/movie/data": { verb: "get" };
-  "/genre/$genreId/tv": { verb: "get" };
+  "/genre/$genreId/tv": {
+    verb: "get";
+    meta: typeof import("../src/routes/genre/$genreId/tv/+meta.json");
+  };
   "/genre/$genreId/tv/data": { verb: "get" };
   "/movie/_index": {
     verb: "get";
