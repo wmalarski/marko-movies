@@ -4,6 +4,7 @@
 */
 
 import type * as Run from "@marko/run";
+import type { NetlifyEdgePlatformInfo } from "@marko/run-adapter-netlify";
 import {
   GetPaths,
   GetableHref,
@@ -17,6 +18,8 @@ import {
 } from "@marko/run/namespace";
 
 declare module "@marko/run" {
+  interface Platform extends NetlifyEdgePlatformInfo {}
+
   interface AppData
     extends Run.DefineApp<{
       routes: {
@@ -82,6 +85,26 @@ declare module "../src/routes/genre/$genreId/tv/data/+handler" {
   }
 }
 
+declare module "../src/routes/movie/categories/$name/+handler" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes["/movie/categories/:name"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
 declare module "../src/routes/movie/categories/$name/data/+handler" {
   namespace MarkoRun {
     export {
@@ -116,6 +139,26 @@ declare module "../src/routes/search/data/+handler" {
       Platform,
     };
     export type Route = Run.Routes["/search/data"];
+    export type Context = Run.MultiRouteContext<Route>;
+    export type Handler = Run.HandlerLike<Route>;
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
+declare module "../src/routes/tv/categories/$name/+handler" {
+  namespace MarkoRun {
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes["/tv/categories/:name"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
     export const route: Run.HandlerTypeFn<Route>;
@@ -534,17 +577,32 @@ type Routes = {
   "/genre/$genreId/movie/data": { verb: "get" };
   "/genre/$genreId/tv": { verb: "get" };
   "/genre/$genreId/tv/data": { verb: "get" };
-  "/movie/_index": { verb: "get" };
+  "/movie/_index": {
+    verb: "get";
+    meta: typeof import("../src/routes/movie/_index/+meta.json");
+  };
   "/movie/$movieId/_index": { verb: "get" };
   "/movie/$movieId/photos": { verb: "get" };
   "/movie/$movieId/videos": { verb: "get" };
-  "/movie/categories/$name": { verb: "get" };
+  "/movie/categories/$name": {
+    verb: "get";
+    meta: typeof import("../src/routes/movie/categories/$name/+meta.json");
+  };
   "/movie/categories/$name/data": { verb: "get" };
   "/person/$personId": { verb: "get" };
-  "/search": { verb: "get" };
+  "/search": {
+    verb: "get";
+    meta: typeof import("../src/routes/search/+meta.json");
+  };
   "/search/data": { verb: "get" };
-  "/tv/_index": { verb: "get" };
+  "/tv/_index": {
+    verb: "get";
+    meta: typeof import("../src/routes/tv/_index/+meta.json");
+  };
   "/tv/$tvId": { verb: "get" };
-  "/tv/categories/$name": { verb: "get" };
+  "/tv/categories/$name": {
+    verb: "get";
+    meta: typeof import("../src/routes/tv/categories/$name/+meta.json");
+  };
   "/tv/categories/$name/data": { verb: "get" };
 };

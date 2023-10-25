@@ -6,8 +6,14 @@ import "./index.css";
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A basic Marko app.">
-    <title>${$global.meta.pageTitle || "Marko"}</title>
+    <meta
+      name="description"
+      content=(
+        ($global.meta as any).pageDescription ||
+        "Marko Run Movies - real app example using marko-run"
+      )
+    >
+    <title>${($global.meta as any).pageTitle || "Marko Run Movies"}</title>
   </head>
   <body
     class="bg-black text-neutral-200 flex h-screen w-screen flex-col-reverse md:flex-row"
