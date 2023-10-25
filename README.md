@@ -1,12 +1,20 @@
-# Thanks for checking out Marko
+# Marko Run Movies
 
-# Installation
+- Inspired by [Movies App demos](https://tastejs.com/movies/)
+- Design by [Nuxt Movies](https://movies.nuxt.space/)
+- This product uses the [TMDB API](https://www.themoviedb.org/documentation/api) but is not endorsed or certified by TMDB.
 
-```
-npx @marko/create marko-app --template basic
-cd marko-app
+## Installation
+
+```sh
 npm install
 npm run dev
+```
+
+## Environmental variables
+
+```sh
+VITE_TMDB_API_KEY=
 ```
 
 ## Overview
@@ -20,4 +28,3 @@ This project is powered by [@marko/run](https://github.com/marko-js/run).
 ## Adding Pages
 
 Pages map to the directory structure. You can add additional pages by creating files/directories under `src/routes` with `+page.marko` files.  Learn more in the [`@marko/run` docs](https://github.com/marko-js/run/#file-based-routing).
-
