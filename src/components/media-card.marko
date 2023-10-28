@@ -1,14 +1,19 @@
 import type { MediaBase } from "../services/types";
 import { getHeading } from "../utils/format";
-import { paths } from "../utils/paths";
+import { buildPath } from "../utils/paths";
 import { getPoster, getPosterSet } from "../services/images";
 export interface Input {
   media: MediaBase;
 }
-<const/{ media } = input/>
-<const/heading = getHeading(media)/>
+<const/{ media }=input/>
+<const/heading=getHeading(media)/>
+<const/href=(
+  media.media_type === "movie"
+    ? buildPath("/movie/:movieId", { movieId: String(media.id) })
+    : buildPath("/tv/:tvId", { tvId: String(media.id) })
+)/>
 
-<a href=paths.media(media.media_type, media.id) class="block w-48">
+<a href=href class="block w-48">
   <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
     <picture>
       <img

@@ -1,9 +1,9 @@
-import { paths } from "../utils/paths";
+import { buildPath } from "../utils/paths";
 
 <nav class="px-2 py-4">
   <ul class="flex justify-around gap-6 md:w-12 md:flex-col md:justify-start">
     <li class="hover:opacity-80">
-      <a href=paths.index>
+      <a href=buildPath("/", {})>
         <img
           alt="home"
           src="../media/home.svg"
@@ -13,7 +13,7 @@ import { paths } from "../utils/paths";
       </a>
     </li>
     <li class="hover:opacity-80">
-      <a href=paths.movies>
+      <a href=buildPath("/movie", {})>
         <img
           alt="movie"
           src="../media/movie.svg"
@@ -23,7 +23,7 @@ import { paths } from "../utils/paths";
       </a>
     </li>
     <li class="hover:opacity-80">
-      <a href=paths.tv>
+      <a href=buildPath("/tv", {})>
         <img
           alt="tv"
           src="../media/tv.svg"
@@ -33,7 +33,7 @@ import { paths } from "../utils/paths";
       </a>
     </li>
     <li class="hover:opacity-80">
-      <a href=paths.search>
+      <a href=buildPath("/search", {})>
         <img
           alt="search"
           src="../media/magnifier.svg"

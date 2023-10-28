@@ -1,6 +1,6 @@
 import { getRandomMedia, getTvShows } from "../../../services/tmdb";
 import { getListItem } from "../../../utils/format";
-import { paths } from "../../../utils/paths";
+import { buildPath } from "../../../utils/paths";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const popular = getTvShows({
@@ -14,7 +14,7 @@ import { paths } from "../../../utils/paths";
       $ const random = getRandomMedia({
         collections: [popular],
       });
-      <a href=paths.media("tv", random?.id)>
+      <a href=buildPath("/tv/:tvId", { tvId: String(random.id) })>
         <tv-hero media=random/>
       </a>
     </@then>
@@ -22,7 +22,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=popular
     title=getListItem({ query: "popular", type: "tv" })
-    viewAllHref=paths.tvCategory("popular")
+    viewAllHref=buildPath("/tv/categories/:name", { name: "popular" })
     clientReorder
   />
   $ const topRated = getTvShows({
@@ -33,7 +33,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=topRated
     title=getListItem({ query: "top_rated", type: "tv" })
-    viewAllHref=paths.tvCategory("top_rated")
+    viewAllHref=buildPath("/tv/categories/:name", { name: "top_rated" })
   />
   $ const onTheAir = getTvShows({
     context: $global.tmdb,
@@ -43,7 +43,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=onTheAir
     title=getListItem({ query: "on_the_air", type: "tv" })
-    viewAllHref=paths.tvCategory("on_the_air")
+    viewAllHref=buildPath("/tv/categories/:name", { name: "on_the_air" })
   />
   $ const airingToday = getTvShows({
     context: $global.tmdb,
@@ -53,7 +53,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=airingToday
     title=getListItem({ query: "airing_today", type: "tv" })
-    viewAllHref=paths.tvCategory("airing_today")
+    viewAllHref=buildPath("/tv/categories/:name", { name: "airing_today" })
   />
 
   <page-footer/>

@@ -6,7 +6,7 @@ import {
   formatLanguage,
   formatRuntime,
 } from "../utils/format";
-import { paths } from "../utils/paths";
+import { buildPath } from "../utils/paths";
 export interface Input {
   media: MovieExtraDetails | TvExtraDetails;
 }
@@ -55,7 +55,9 @@ export interface Input {
           <div>Director</div>
           <div>
             <for|person, index| of=directors>
-              <a href=paths.person(person.id)>
+              <a href=buildPath("/person/:personId", {
+                personId: String(person.id),
+              })>
                 ${person.name}
               </a>
               <const/showSeparator=index < directors.length - 1/>
@@ -80,7 +82,12 @@ export interface Input {
           <div>Genre</div>
           <div>
             <for|genre, index| of=media.genres>
-              <a href=paths.genre(media.media_type, genre.id)>
+              <a href=buildPath(
+                media.media_type === "movie"
+                  ? "/genre/:genreId/movie"
+                  : "/genre/:genreId/tv",
+                { genreId: String(genre.id) }
+              )>
                 ${genre.name}
               </a>
               <const/showSeparator=index < directors.length - 1/>

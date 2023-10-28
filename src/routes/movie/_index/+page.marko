@@ -1,6 +1,6 @@
 import { getMovies, getRandomMedia } from "../../../services/tmdb";
 import { getListItem } from "../../../utils/format";
-import { paths } from "../../../utils/paths";
+import { buildPath } from "../../../utils/paths";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   $ const popular = getMovies({
@@ -12,7 +12,7 @@ import { paths } from "../../../utils/paths";
   <await(popular)>
     <@then|popular|>
       $ const random = getRandomMedia({ collections: [popular] });
-      <a href=paths.media("movie", random.id)>
+      <a href=buildPath("/movie/:movieId", { movieId: String(random.id) })>
         <movie-hero media=random/>
       </a>
     </@then>
@@ -20,7 +20,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=popular
     title=getListItem({ query: "popular", type: "movie" })
-    viewAllHref=paths.movieCategory("popular")
+    viewAllHref=buildPath("/movie/categories/:name", { name: "popular" })
     clientReorder
   />
   $ const topRated = getMovies({
@@ -31,7 +31,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=topRated
     title=getListItem({ query: "top_rated", type: "movie" })
-    viewAllHref=paths.movieCategory("top_rated")
+    viewAllHref=buildPath("/movie/categories/:name", { name: "top_rated" })
     clientReorder
   />
   $ const nowPlaying = getMovies({
@@ -42,7 +42,7 @@ import { paths } from "../../../utils/paths";
   <media-carousel
     collection=nowPlaying
     title=getListItem({ query: "now_playing", type: "movie" })
-    viewAllHref=paths.movieCategory("now_playing")
+    viewAllHref=buildPath("/movie/categories/:name", { name: "now_playing" })
     clientReorder
   />
 

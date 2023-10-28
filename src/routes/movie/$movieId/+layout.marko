@@ -1,4 +1,4 @@
-import { paths } from "../../../utils/paths";
+import { buildPath } from "../../../utils/paths";
 import { twCx } from "../../../utils/twCx";
 export interface Input {
   renderBody: Marko.Body;
@@ -27,18 +27,19 @@ export interface Input {
       ${content}
     </a>
   </macro>
+  $ const movieId = $global.params.movieId;
 
   <div class="flex flex-row items-center justify-center gap-4">
     <styled-link
-      href=paths.media("movie", +$global.params.movieId)
+      href=buildPath("/movie/:movieId", { movieId })
       content="Overview"
     />
     <styled-link
-      href=paths.movieVideo(+$global.params.movieId)
+      href=buildPath("/movie/:movieId/videos", { movieId })
       content="Videos"
     />
     <styled-link
-      href=paths.moviePhotos(+$global.params.movieId)
+      href=buildPath("/movie/:movieId/photos", { movieId })
       content="Photos"
     />
   </div>
