@@ -1,5 +1,5 @@
 import { buildSearchParams } from "../utils/searchParams";
-import {
+import type {
   Collection,
   Genre,
   MediaBase,
