@@ -1,11 +1,12 @@
-import { coerce, integer, minValue, number, object, parseAsync } from "valibot";
+import * as v from "valibot";
 import { getMovie } from "../../../services/tmdb";
+import { getIntegerValidation } from "../../../utils/validation";
 
 const handler: MarkoRun.Handler = async (context, next) => {
-  const paramsSchema = object({
-    movieId: coerce(number([minValue(0), integer()]), Number),
+  const paramsSchema = v.object({
+    movieId: getIntegerValidation(),
   });
-  const params = await parseAsync(paramsSchema, context.params);
+  const params = await v.parseAsync(paramsSchema, context.params);
 
   const movie = await getMovie({
     context: context.tmdb,

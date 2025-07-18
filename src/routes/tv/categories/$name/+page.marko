@@ -1,9 +1,10 @@
 import { getTrendingTv, getTvShows } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
-import { object, string, pipe, minLength, parse } from "valibot";
+import * as v from "valibot";
+import { getNameValidation } from "../../../../utils/validation";
 
-<const/parseResult=parse(
-  object({ name: pipe(string(), minLength(1)) }),
+<const/parseResult=v.parse(
+  v.object({ name: getNameValidation() }),
   $global.params,
 )>
 <const/name=parseResult.name>

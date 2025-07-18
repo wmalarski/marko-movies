@@ -1,20 +1,12 @@
-import {
-  coerce,
-  integer,
-  minLength,
-  minValue,
-  number,
-  object,
-  parseAsync,
-  string,
-} from "valibot";
+import * as v from "valibot";
 import { getMovies, getTrendingMovie } from "../../../../../services/tmdb";
+import { getNameValidation, getPageValidation } from "../../../../../utils/validation";
 
 export const GET: MarkoRun.Handler = async (context) => {
-  const parseResult = await parseAsync(
-    object({
-      name: string([minLength(1)]),
-      page: coerce(number([integer(), minValue(1)]), Number),
+  const parseResult = await v.parseAsync(
+    v.object({
+      name: getNameValidation(),
+      page: getPageValidation(),
     }),
     { ...context.params, ...Object.fromEntries(context.url.searchParams) },
   );
@@ -22,14 +14,14 @@ export const GET: MarkoRun.Handler = async (context) => {
   const movies =
     parseResult.name === "trending"
       ? await getTrendingMovie({
-          context: context.tmdb,
-          page: parseResult.page,
-        })
+        context: context.tmdb,
+        page: parseResult.page,
+      })
       : await getMovies({
-          context: context.tmdb,
-          page: parseResult.page,
-          query: parseResult.name,
-        });
+        context: context.tmdb,
+        page: parseResult.page,
+        query: parseResult.name,
+      });
 
   return new Response(JSON.stringify(movies), { status: 200 });
 };

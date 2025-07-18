@@ -1,20 +1,12 @@
-import {
-  coerce,
-  integer,
-  minValue,
-  number,
-  object,
-  optional,
-  parseAsync,
-  string,
-} from "valibot";
+import * as v from "valibot";
 import { search } from "../../../services/tmdb";
+import { getPageValidation } from "../../../utils/validation";
 
 export const GET: MarkoRun.Handler = async (context) => {
-  const parseResult = await parseAsync(
-    object({
-      query: optional(string(), ""),
-      page: coerce(number([integer(), minValue(1)]), Number),
+  const parseResult = await v.parseAsync(
+    v.object({
+      query: v.optional(v.string(), ""),
+      page: getPageValidation(),
     }),
     Object.fromEntries(context.url.searchParams),
   );

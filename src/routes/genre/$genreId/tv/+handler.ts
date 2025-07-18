@@ -1,9 +1,10 @@
-import { coerce, integer, minValue, number, object, parseAsync } from "valibot";
+import * as v from "valibot";
 import { getMediaByGenre } from "../../../../services/tmdb";
+import { getIntegerValidation } from "../../../../utils/validation";
 
 export const GET: MarkoRun.Handler = async (context, next) => {
-  const parseResult = await parseAsync(
-    object({ genreId: coerce(number([minValue(0), integer()]), Number) }),
+  const parseResult = await v.parseAsync(
+    v.object({ genreId: getIntegerValidation() }),
     context.params,
   );
 

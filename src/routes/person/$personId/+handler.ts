@@ -1,9 +1,10 @@
-import { coerce, integer, minValue, number, object, parseAsync } from "valibot";
+import * as v from "valibot";
 import { getPerson } from "../../../services/tmdb";
+import { getIntegerValidation } from "../../../utils/validation";
 
 export const GET: MarkoRun.Handler = async (context, next) => {
-  const params = await parseAsync(
-    object({ personId: coerce(number([minValue(0), integer()]), Number) }),
+  const params = await v.parseAsync(
+    v.object({ personId: getIntegerValidation() }),
     context.params,
   );
   const person = await getPerson({
