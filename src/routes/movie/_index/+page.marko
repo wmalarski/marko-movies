@@ -11,14 +11,14 @@ import { buildPath } from "../../../utils/paths";
 
   <await|data|=popular>
     <const/random=getRandomMedia({ collections: [data] })>
-    <a href=buildPath("/movie/:movieId", { movieId: String(random.id) })>
+    <a href=buildPath("/movie/$movieId", { movieId: String(random.id) })>
       <movie-hero media=random/>
     </a>
   </await>
   <media-carousel
     collection=popular
     title=getListItem({ query: "popular", type: "movie" })
-    viewAllHref=buildPath("/movie/categories/:name", { name: "popular" })
+    viewAllHref=buildPath("/movie/categories/$name", { name: "popular" })
     clientReorder/>
   <const/topRated=getMovies({
     context: $global.tmdb,
@@ -28,7 +28,7 @@ import { buildPath } from "../../../utils/paths";
   <media-carousel
     collection=topRated
     title=getListItem({ query: "top_rated", type: "movie" })
-    viewAllHref=buildPath("/movie/categories/:name", { name: "top_rated" })
+    viewAllHref=buildPath("/movie/categories/$name", { name: "top_rated" })
     clientReorder/>
   <const/nowPlaying=getMovies({
     context: $global.tmdb,
@@ -38,7 +38,7 @@ import { buildPath } from "../../../utils/paths";
   <media-carousel
     collection=nowPlaying
     title=getListItem({ query: "now_playing", type: "movie" })
-    viewAllHref=buildPath("/movie/categories/:name", { name: "now_playing" })
+    viewAllHref=buildPath("/movie/categories/$name", { name: "now_playing" })
     clientReorder/>
 
   <page-footer/>

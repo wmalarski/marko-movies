@@ -11,14 +11,14 @@ import { buildPath } from "../../../utils/paths";
 
   <await|data|=popular>
     <const/random=getRandomMedia({ collections: [data] })>
-    <a href=buildPath("/tv/:tvId", { tvId: String(random.id) })>
+    <a href=buildPath("/tv/$tvId", { tvId: String(random.id) })>
       <tv-hero media=random/>
     </a>
   </await>
   <media-carousel
     collection=popular
     title=getListItem({ query: "popular", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "popular" })
+    viewAllHref=buildPath("/tv/categories/$name", { name: "popular" })
     clientReorder/>
   <const/topRated=getTvShows({
     context: $global.tmdb,
@@ -28,7 +28,7 @@ import { buildPath } from "../../../utils/paths";
   <media-carousel
     collection=topRated
     title=getListItem({ query: "top_rated", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "top_rated" })/>
+    viewAllHref=buildPath("/tv/categories/$name", { name: "top_rated" })/>
   <const/onTheAir=getTvShows({
     context: $global.tmdb,
     page: 1,
@@ -37,7 +37,7 @@ import { buildPath } from "../../../utils/paths";
   <media-carousel
     collection=onTheAir
     title=getListItem({ query: "on_the_air", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "on_the_air" })/>
+    viewAllHref=buildPath("/tv/categories/$name", { name: "on_the_air" })/>
   <const/airingToday=getTvShows({
     context: $global.tmdb,
     page: 1,
@@ -46,7 +46,7 @@ import { buildPath } from "../../../utils/paths";
   <media-carousel
     collection=airingToday
     title=getListItem({ query: "airing_today", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "airing_today" })/>
+    viewAllHref=buildPath("/tv/categories/$name", { name: "airing_today" })/>
 
   <page-footer/>
 </div>

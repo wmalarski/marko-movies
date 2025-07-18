@@ -32,13 +32,13 @@ export interface Input {
 
   <div class="flex flex-row items-center justify-center gap-4">
     <styled-link
-      href=buildPath("/movie/:movieId", { movieId })
+      href=buildPath("/movie/$movieId", { movieId })
       content="Overview"/>
     <styled-link
-      href=buildPath("/movie/:movieId/videos", { movieId })
+      href=buildPath("/movie/$movieId/videos", { movieId })
       content="Videos"/>
     <styled-link
-      href=buildPath("/movie/:movieId/photos", { movieId })
+      href=buildPath("/movie/$movieId/photos", { movieId })
       content="Photos"/>
   </div>
   <${input.renderBody}/>

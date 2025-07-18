@@ -5,13 +5,13 @@ import { getPoster, getPosterSet } from "../services/images";
 export interface Input {
   media: MediaBase;
 }
-<const/{ media }=input/>
-<const/heading=getHeading(media)/>
+<const/{ media }=input>
+<const/heading=getHeading(media)>
 <const/href=(
   media.media_type === "movie"
-    ? buildPath("/movie/:movieId", { movieId: String(media.id) })
-    : buildPath("/tv/:tvId", { tvId: String(media.id) })
-)/>
+    ? buildPath("/movie/$movieId", { movieId: String(media.id) })
+    : buildPath("/tv/$tvId", { tvId: String(media.id) })
+)>
 
 <a href=href class="block w-48">
   <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
@@ -22,8 +22,7 @@ export interface Input {
         height=270
         src=getPoster(media, "92")
         srcset=getPosterSet(media, "185")
-        width=185
-      >
+        width=185>
     </picture>
   </div>
   <span class="text-ellipsis">

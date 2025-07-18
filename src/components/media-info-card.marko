@@ -10,7 +10,7 @@ import { buildPath } from "../utils/paths";
 export interface Input {
   media: MovieExtraDetails | TvExtraDetails;
 }
-<const/{ media }=input/>
+<const/{ media }=input>
 
 <section class="flex justify-center p-6">
   <div class="flex max-w-5xl flex-row items-center gap-8">
@@ -21,8 +21,7 @@ export interface Input {
             alt="Poster"
             class="h-full w-80 max-w-full object-cover text-black"
             src=getPoster(media, "92")
-            srcset=getPosterSet(media, "342")
-          >
+            srcset=getPosterSet(media, "342")>
         </picture>
       </div>
     </div>
@@ -49,18 +48,18 @@ export interface Input {
           <div>${formatRuntime(media.runtime)}</div>
         </if>
         <const/directors=media.credits?.crew?.filter(
-          (person) => person.job === "Director"
-        ) || []/>
+          (person) => person.job === "Director",
+        ) || []>
         <if=(directors && directors.length > 0)>
           <div>Director</div>
           <div>
             <for|person, index| of=directors>
-              <a href=buildPath("/person/:personId", {
+              <a href=buildPath("/person/$personId", {
                 personId: String(person.id),
               })>
                 ${person.name}
               </a>
-              <const/showSeparator=index < directors.length - 1/>
+              <const/showSeparator=index < directors.length - 1>
               <if=showSeparator>
                 ${", "}
               </if>
@@ -84,13 +83,13 @@ export interface Input {
             <for|genre, index| of=media.genres>
               <a href=buildPath(
                 media.media_type === "movie"
-                  ? "/genre/:genreId/movie"
-                  : "/genre/:genreId/tv",
-                { genreId: String(genre.id) }
+                  ? "/genre/$genreId/movie"
+                  : "/genre/$genreId/tv",
+                { genreId: String(genre.id) },
               )>
                 ${genre.name}
               </a>
-              <const/showSeparator=index < directors.length - 1/>
+              <const/showSeparator=index < directors.length - 1>
               <if=showSeparator>
                 ${", "}
               </if>

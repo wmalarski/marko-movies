@@ -7,7 +7,7 @@ export const buildPath = <Path extends MarkoRun.Route["path"]>(
   params: RouteParams<Path>,
 ) => {
   return Object.entries(params).reduce<string>(
-    (prev, [param, value]) => prev.replaceAll(`:${param}`, value as string),
+    (prev, [param, value]) => prev.replaceAll(`$${param}`, value as string),
     path,
   );
 };

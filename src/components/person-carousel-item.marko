@@ -4,12 +4,11 @@ import { getProfile, getProfileSet } from "../services/images";
 export interface Input {
   media: Cast | Crew;
 }
-<const/{ media }=input/>
+<const/{ media }=input>
 
 <a
-  href=buildPath("/person/:personId", { personId: String(media.id) })
-  class="w-48"
->
+  href=buildPath("/person/$personId", { personId: String(media.id) })
+  class="w-48">
   <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
     <picture>
       <img
@@ -18,8 +17,7 @@ export interface Input {
         height=270
         src=getProfile(media, "w45")
         srcset=getProfileSet(media)
-        width=185
-      >
+        width=185>
     </picture>
   </div>
   <span>${media.name}</span>

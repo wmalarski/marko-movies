@@ -11,7 +11,7 @@ import { getListItem } from "../../utils/format";
 
   <await|data|=movies>
     <const/random=getRandomMedia({ collections: [data] })>
-    <a href=buildPath("/movie/:movieId", { movieId: String(random.id) })>
+    <a href=buildPath("/movie/$movieId", { movieId: String(random.id) })>
       <movie-hero media=random/>
     </a>
   </await>
@@ -19,14 +19,14 @@ import { getListItem } from "../../utils/format";
   <media-carousel
     collection=movies
     title=getListItem({ query: "trending", type: "movie" })
-    viewAllHref=buildPath("/movie/categories/:name", { name: "trending" })
+    viewAllHref=buildPath("/movie/categories/$name", { name: "trending" })
     clientReorder/>
 
   <const/tvs=getTrendingTv({ context: $global.tmdb, page: 1 })>
   <media-carousel
     collection=tvs
     title=getListItem({ query: "trending", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "trending" })
+    viewAllHref=buildPath("/tv/categories/$name", { name: "trending" })
     clientReorder/>
 
   <page-footer/>
