@@ -5,17 +5,20 @@ export interface Input {
   viewAllHref: string;
   clientReorder?: boolean;
 }
-$ const { collection, title, viewAllHref } = input;
+<const/{ collection, title, viewAllHref }=input>
 
-<await(collection)>
+<try>
   <@placeholder>
     <label>
-      Loading…
+      Loading…${" "}
       <progress/>
     </label>
   </@placeholder>
+  <@catch|err|>
+    ${JSON.stringify(err, null, 2)}
+  </@catch>
 
-  <@then|collection|>
+  <await|data|=collection>
     <section>
       <div class="flex flex-row items-center px-12 py-2">
         <h2 class="text-2xl">
@@ -24,32 +27,26 @@ $ const { collection, title, viewAllHref } = input;
         <div class="flex-auto"/>
         <a
           class="transition-text opacity-80 duration-100 ease-in-out hover:opacity-100"
-          href=viewAllHref
-        >
+          href=viewAllHref>
           Explore All
         </a>
       </div>
       <div class="relative">
         <div class="overflow-y-auto px-8 py-4">
           <div class="carousel flex w-max flex-row gap-2">
-            <for|media| of=collection.results || []>
+            <for|media| of=data.results || []>
               <div class="carousel-item">
                 <media-card media=media/>
               </div>
             </for>
             <a
               class="transition-text flex w-44 items-center justify-center duration-100 ease-in-out"
-              href=viewAllHref
-            >
+              href=viewAllHref>
               Explore All
             </a>
           </div>
         </div>
       </div>
     </section>
-  </@then>
-
-  <@catch|err|>
-    <!-- Displays if promise rejects -->${JSON.stringify(err, null, 2)}
-  </@catch>
-</await>
+  </await>
+</try>

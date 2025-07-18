@@ -1,24 +1,21 @@
 import { getTrendingTv, getTvShows } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
-import { object, string, minLength, parse } from "valibot";
-import loader from "./loader.marko";
-$ const parseResult = parse(
-  object({ name: string([minLength(1)]) }),
-  $global.params
-);
-$ const name = parseResult.name;
-$ const tvShows = (
+import { object, string, pipe, minLength, parse } from "valibot";
+
+<const/parseResult=parse(
+  object({ name: pipe(string(), minLength(1)) }),
+  $global.params,
+)>
+<const/name=parseResult.name>
+<const/tvShows=(
   name === "trending"
     ? getTrendingTv({ context: $global.tmdb, page: 1 })
     : getTvShows({ context: $global.tmdb, page: 1, query: name })
-);
+)>
 
-<await(tvShows)>
-  <@then|tvShows|>
-    <loader
-      initialCollection=tvShows
-      name=getListItem({ query: name, type: "tv" })
-      categoryName=name
-    />
-  </@then>
+<await|data|=tvShows>
+  <loader
+    initialCollection=data
+    name=getListItem({ query: name, type: "tv" })
+    categoryName=name/>
 </await>

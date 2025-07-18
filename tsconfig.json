@@ -1,10 +1,19 @@
 {
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "strict": true,
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
     "resolveJsonModule": true,
-  },
-  "include": ["src/**/*", ".marko-run/**/*"]
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "verbatimModuleSyntax": true,
+    "types": ["vite/client"]
+  }
 }

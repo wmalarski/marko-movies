@@ -1,24 +1,20 @@
 import { getMovies, getTrendingMovie } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
-import { object, string, minLength, parse } from "valibot";
-import loader from "./loader.marko";
-$ const parseResult = parse(
-  object({ name: string([minLength(1)]) }),
-  $global.params
-);
-$ const name = parseResult.name;
-$ const movies = (
+import { object, string, minLength, pipe, parse } from "valibot";
+<const/parseResult=parse(
+  object({ name: pipe(string(), minLength(1)) }),
+  $global.params,
+)>
+<const/name=parseResult.name>
+<const/movies=(
   name === "trending"
     ? getTrendingMovie({ context: $global.tmdb, page: 1 })
     : getMovies({ context: $global.tmdb, page: 1, query: name })
-);
+)>
 
-<await(movies)>
-  <@then|movies|>
-    <loader
-      initialCollection=movies
-      name=getListItem({ query: parseResult.name, type: "movie" })
-      categoryName=name
-    />
-  </@then>
+<await|data|=movies>
+  <loader
+    initialCollection=data
+    name=getListItem({ query: parseResult.name, type: "movie" })
+    categoryName=name/>
 </await>

@@ -7,30 +7,27 @@ import { buildPath } from "../../utils/paths";
 import { getListItem } from "../../utils/format";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const movies = getTrendingMovie({ context: $global.tmdb, page: 1 });
+  <const/movies=getTrendingMovie({ context: $global.tmdb, page: 1 })>
 
-  <await(movies)>
-    <@then|movies|>
-      $ const random = getRandomMedia({ collections: [movies] });
-      <a href=buildPath("/movie/:movieId", { movieId: String(random.id) })>
-        <movie-hero media=random/>
-      </a>
-    </@then>
+  <await|data|=movies>
+    <const/random=getRandomMedia({ collections: [data] })>
+    <a href=buildPath("/movie/:movieId", { movieId: String(random.id) })>
+      <movie-hero media=random/>
+    </a>
   </await>
 
   <media-carousel
     collection=movies
     title=getListItem({ query: "trending", type: "movie" })
     viewAllHref=buildPath("/movie/categories/:name", { name: "trending" })
-    clientReorder
-  />
-  $ const tvs = getTrendingTv({ context: $global.tmdb, page: 1 });
+    clientReorder/>
+
+  <const/tvs=getTrendingTv({ context: $global.tmdb, page: 1 })>
   <media-carousel
     collection=tvs
     title=getListItem({ query: "trending", type: "tv" })
     viewAllHref=buildPath("/tv/categories/:name", { name: "trending" })
-    clientReorder
-  />
+    clientReorder/>
 
   <page-footer/>
 </div>

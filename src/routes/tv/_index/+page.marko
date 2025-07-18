@@ -3,58 +3,50 @@ import { getListItem } from "../../../utils/format";
 import { buildPath } from "../../../utils/paths";
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-  $ const popular = getTvShows({
+  <const/popular=getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "popular",
-  });
+  })>
 
-  <await(popular)>
-    <@then|popular|>
-      $ const random = getRandomMedia({
-        collections: [popular],
-      });
-      <a href=buildPath("/tv/:tvId", { tvId: String(random.id) })>
-        <tv-hero media=random/>
-      </a>
-    </@then>
+  <await|data|=popular>
+    <const/random=getRandomMedia({ collections: [data] })>
+    <a href=buildPath("/tv/:tvId", { tvId: String(random.id) })>
+      <tv-hero media=random/>
+    </a>
   </await>
   <media-carousel
     collection=popular
     title=getListItem({ query: "popular", type: "tv" })
     viewAllHref=buildPath("/tv/categories/:name", { name: "popular" })
-    clientReorder
-  />
-  $ const topRated = getTvShows({
+    clientReorder/>
+  <const/topRated=getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "top_rated",
-  });
+  })>
   <media-carousel
     collection=topRated
     title=getListItem({ query: "top_rated", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "top_rated" })
-  />
-  $ const onTheAir = getTvShows({
+    viewAllHref=buildPath("/tv/categories/:name", { name: "top_rated" })/>
+  <const/onTheAir=getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "on_the_air",
-  });
+  })>
   <media-carousel
     collection=onTheAir
     title=getListItem({ query: "on_the_air", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "on_the_air" })
-  />
-  $ const airingToday = getTvShows({
+    viewAllHref=buildPath("/tv/categories/:name", { name: "on_the_air" })/>
+  <const/airingToday=getTvShows({
     context: $global.tmdb,
     page: 1,
     query: "airing_today",
-  });
+  })>
   <media-carousel
     collection=airingToday
     title=getListItem({ query: "airing_today", type: "tv" })
-    viewAllHref=buildPath("/tv/categories/:name", { name: "airing_today" })
-  />
+    viewAllHref=buildPath("/tv/categories/:name", { name: "airing_today" })/>
 
   <page-footer/>
 </div>

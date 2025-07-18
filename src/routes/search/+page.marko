@@ -1,26 +1,19 @@
 import { search } from "../../services/tmdb";
-import loader from "./loader.marko";
-$ const query = $global.url.searchParams.get("query") || "";
-$ const result = search({
-  context: $global.tmdb,
-  page: 1,
-  query,
-});
+<const/query=$global.url.searchParams.get("query") || "">
+<const/result=search({ context: $global.tmdb, page: 1, query })>
 
 <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
   <img
     alt="search"
     src="../../media/magnifier.svg"
     aria-label="Search"
-    class="w-6 h-6"
-  >
+    class="w-6 h-6">
   <input
     aria-label="query"
     class="bg-gray-700 text-neutral-200"
     id="query"
     name="query"
-    value=query
-  >
+    value=query>
   <button class="btn" type="submit">
     Search
   </button>
@@ -28,9 +21,7 @@ $ const result = search({
 
 <div class="flex max-h-screen flex-col overflow-y-scroll">
 
-  <await(result)>
-    <@then|result|>
-      <loader initialCollection=result name="Search results" query=query/>
-    </@then>
+  <await|data|=result>
+    <loader initialCollection=data name="Search results" query=query/>
   </await>
 </div>
