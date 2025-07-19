@@ -1,6 +1,6 @@
 import { buildPath } from "../../../utils/paths";
 export interface Input {
-  renderBody: Marko.Body;
+  content: Marko.Body;
 }
 
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
@@ -9,16 +9,16 @@ export interface Input {
   <const/movieId=(($global.params as any).movieId)>
 
   <div class="flex flex-row items-center justify-center gap-4">
-    <styled-link
-      href=buildPath("/movie/$movieId", { movieId })
-      content="Overview"/>
-    <styled-link
-      href=buildPath("/movie/$movieId/videos", { movieId })
-      content="Videos"/>
-    <styled-link
-      href=buildPath("/movie/$movieId/photos", { movieId })
-      content="Photos"/>
+    <styled-link href=buildPath("/movie/$movieId", { movieId })>
+      Overview
+    </styled-link>
+    <styled-link href=buildPath("/movie/$movieId/videos", { movieId })>
+      Videos
+    </styled-link>
+    <styled-link href=buildPath("/movie/$movieId/photos", { movieId })>
+      Photos
+    </styled-link>
   </div>
-  <${input.renderBody}/>
+  <${input.content}/>
   <page-footer/>
 </div>

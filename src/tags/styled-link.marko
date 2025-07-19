@@ -1,9 +1,9 @@
 import { twCx } from "../utils/twCx";
 export interface Input {
     href: string;
-    content: string;
+    content: Marko.Body;
 }
-<const/{ href, content }=input>
+<const/{ href }=input>
 
 <a
     href=href
@@ -14,5 +14,5 @@ export interface Input {
                 href === $global.url.pathname,
         },
     )>
-    ${content}
+    <${input.content}/>
 </a>

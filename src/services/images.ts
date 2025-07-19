@@ -1,4 +1,4 @@
-import { Cast, Crew, Image, MediaBase, PersonDetails } from "./types";
+import type { Cast, Crew, Image, MediaBase, PersonDetails } from "./types";
 
 const imageBase = "https://image.tmdb.org/t/p";
 
