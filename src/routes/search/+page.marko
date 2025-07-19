@@ -1,4 +1,5 @@
 import { search } from "../../services/tmdb";
+import Loader from "./loader.marko";
 <const/query=$global.url.searchParams.get("query") || "">
 <const/result=search({ context: $global.tmdb, page: 1, query })>
 
@@ -22,6 +23,6 @@ import { search } from "../../services/tmdb";
 <div class="flex max-h-screen flex-col overflow-y-scroll">
 
   <await|data|=result>
-    <loader initialCollection=data name="Search results" query=query/>
+    <Loader initialCollection=data name="Search results" query=query/>
   </await>
 </div>

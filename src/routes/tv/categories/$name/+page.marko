@@ -2,7 +2,7 @@ import { getTrendingTv, getTvShows } from "../../../../services/tmdb";
 import { getListItem } from "../../../../utils/format";
 import * as v from "valibot";
 import { getNameValidation } from "../../../../utils/validation";
-
+import Loader from "./loader.marko";
 <const/parseResult=v.parse(
   v.object({ name: getNameValidation() }),
   $global.params,
@@ -15,7 +15,7 @@ import { getNameValidation } from "../../../../utils/validation";
 )>
 
 <await|data|=tvShows>
-  <loader
+  <Loader
     initialCollection=data
     name=getListItem({ query: name, type: "tv" })
     categoryName=name/>

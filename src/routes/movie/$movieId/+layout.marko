@@ -1,5 +1,4 @@
 import { buildPath } from "../../../utils/paths";
-import { twCx } from "../../../utils/twCx";
 export interface Input {
   renderBody: Marko.Body;
 }
@@ -7,27 +6,6 @@ export interface Input {
 <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
   <movie-hero media=$global.movie/>
 
-  <macro|
-    {
-      href,
-      content,
-    }: {
-      href: string;
-      content: string;
-    },
-  | name="styled-link">
-    <a
-      href=href
-      class=twCx(
-        "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
-        {
-          "border-b-2 border-b-white opacity-100":
-            href === $global.url.pathname,
-        },
-      )>
-      ${content}
-    </a>
-  </macro>
   <const/movieId=(($global.params as any).movieId)>
 
   <div class="flex flex-row items-center justify-center gap-4">
